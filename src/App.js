@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Markup from './components/Markup.js';
+import GeneralInfo from './components/GeneralComponent.js';
 
 class App extends Component {
   constructor() {
@@ -6,8 +8,6 @@ class App extends Component {
     this.state = {
       val: '',
     };
-    this.handleChange = this.handleChange.bind(this);
-    this.onSubmitCV = this.onSubmitCV.bind(this);
   }
   handleChange(e) {
     this.setState({val: e.target.value });
@@ -18,7 +18,14 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-
+        {Markup.header}
+        <div>
+    <form onSubmit={App.onSubmitCV}>
+      <GeneralInfo/>
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+        {Markup.footer}
       </div>
     )
   }
