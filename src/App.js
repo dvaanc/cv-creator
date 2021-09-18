@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Markup from './components/Markup.js';
+import './styles/App.css'
 import GeneralInfo from './components/GeneralComponent.js';
+import EducationInfo from './components/EducationComponent.js';
 
 class App extends Component {
   constructor() {
@@ -9,23 +10,26 @@ class App extends Component {
       val: '',
     };
   }
-  handleChange(e) {
-    this.setState({val: e.target.value });
-  }
+
   onSubmitCV(e) {
     e.preventDefault();
   }
   render() {
     return (
       <div className="app">
-        {Markup.header}
-        <div>
-    <form onSubmit={App.onSubmitCV}>
-      <GeneralInfo/>
-      <button type="submit">Submit</button>
-    </form>
-  </div>
-        {Markup.footer}
+        <header>
+          <h1>CV CREATOR</h1>
+        </header>
+        <div className="formControl">
+          <form>
+            <GeneralInfo/>
+            <EducationInfo/>
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+        <footer>
+          <p>Copyright © 2021. Web Design by Danny Cao.</p>
+        </footer>
       </div>
     )
   }

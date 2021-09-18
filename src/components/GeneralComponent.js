@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import '../styles/App.css'
 
 class GeneralInfo extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       firstName: '',
       lastName: '',
@@ -13,23 +14,88 @@ class GeneralInfo extends Component {
       description: '',
     };
   }
-  handleChange(e) {
-    this.setState({val: e.target.value });
+  // handleChange = (e) => {
+  //   console.log(e.target.value);
+  //   this.setState({ firstName: e.target.value });
+  // }
+  handleChange = (e) => {
+    const val = e.target.value;
+    const key = e.target.name;
+    this.setState({ 
+      ...this.state,
+      [key]: val, 
+    },
+    () => { console.log(this.state) }
+    );
   }
   render() {
     return (
-      <fieldset id="GeneralInfo">
-        <label htmlFor="firstName">
-          <p>First name</p>
+      <div className="formControl">
+        <fieldset id="GeneralInfo">
           <input 
           type="text"
           name="firstName"
-          id="fName"
-          placeholder="John Doe"
-          value=""
+          id="firstName"
+          placeholder="First name"
+          onChange={this.handleChange}
+          value={this.state.firstName}
           />
-        </label>
-      </fieldset>
+
+          <input 
+          type="text"
+          name="lastName"
+          id="lastName"
+          placeholder="Last name"
+          onChange={this.handleChange}
+          value={this.state.lastName}
+          />
+
+          <input 
+          type="text"
+          name="city"
+          id="city"
+          placeholder="City"
+          onChange={this.handleChange}
+          value={this.state.city}
+          />
+
+          <input 
+          type="tel"
+          name="phone"
+          id="phone"
+          placeholder="Phone"
+          pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+          onChange={this.handleChange}
+          value={this.state.phone}
+          />
+
+          <input 
+          type="text"
+          name="email"
+          id="email"
+          placeholder="Email"
+          onChange={this.handleChange}
+          value={this.state.email}
+          />
+
+          <input 
+          type="file"
+          name="photo"
+          id="photo"
+          onChange={this.handleChange}
+          value={this.state.photo}
+          />
+
+          <textarea 
+          name="description"
+          id="description"
+          placeholder="Description"
+          onChange={this.handleChange}
+          value={this.state.description}
+          />
+
+        </fieldset>
+      </div>
     )
   }
 }
