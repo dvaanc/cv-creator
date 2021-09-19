@@ -30,8 +30,8 @@ class GeneralInfo extends Component {
   }
   render() {
     return (
-      <div className="formGroup">
-        <fieldset id="GeneralInfo">
+      <div className="formGroup" id="GeneralInfo">
+        <fieldset>
         <h2>Personal Information</h2>
           <input 
           type="text"

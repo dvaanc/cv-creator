@@ -7,6 +7,16 @@ class PreviewComponent extends Component {
       val: '',
     };
   }
+  handleChange = (e) => {
+    const val = e.target.value;
+    const key = e.target.name;
+    this.setState({ 
+      ...this.state,
+      [key]: val, 
+    },
+    () => { console.log(this.state) }
+    );
+  }
   render() {
     return (
       <div>

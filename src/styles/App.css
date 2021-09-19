@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;1,500&display=swap');
-
 * {
   margin: 0;
   padding: 0;
@@ -18,43 +17,43 @@ header {
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  color: #333333;
+  color: #ffffff;
   height: 10vh;
   width: 100%;
-  background-color: #91ACCA;
+  background-color: #403E39;
 }
-
 .container {
   display: flex;
   flex-direction: row;
+  justify-content: space-evenly;
   width: 100%;
   background-color: #CCCCCC;
+  padding: 75px;
 }
-
 .formContainer, .previewContainer {
-  width: 50%;
-  padding: 50px;
-  border-radius: 15px;
-
+  width: 40%;
+  padding: 25px;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  background-color: #EEEEEE;
 }
-
+.previewContainer {
+  background-color: #91ACCA;
+  margin-left: 50px;
+}
 .formGroup {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 100%;
   height: 100%;
   border: none;
   border-radius: 8px;
-  background-color: #EEEEEE;
-  margin-bottom: 40px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  
 }
-#GeneralInfo {
-  display: flex;
-  flex-direction: column;
+fieldset {
   border: none;
-  padding: 30px;
+}
+fieldset p {
+  margin-bottom: 5px;
 }
 fieldset h2 {
   color: #333333;
@@ -62,17 +61,20 @@ fieldset h2 {
 }
 fieldset input {
   height: 35px;
+  width: 100%;
   margin-bottom: 10px;
   padding: 15px;
   border: none;
   border-radius: 6px;
   font-size: 18px;
 }
-
 textarea {
-  height: 120px;
+  height: 140px;
+  width: 100%;
   padding: 10px;
-  font-size: 14px;
+  margin-top: 10px;
+  font-family: 'ubuntu';
+  font-size: 16px;
   border: none;
   resize: none;
 }
@@ -81,6 +83,29 @@ fieldset input:focus, textarea:focus {
   outline: none;
   border: 1px solid grey;
 }
+.button {
+  height: 45px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  padding: 3px;
+  margin-top: 10px;
+  font-family: 'ubuntu';
+  font-size: 18px;
+  color: #ffffff;
+}
+button:hover {
+  cursor: pointer;
+}
+#submit {
+  background-color: #0A9037;
+}
+#example {
+  background-color: #B14B0D;
+}
+#reset {
+  background-color: #A2100D;
+}
 footer {
   display: flex;
   align-items: center;
@@ -88,6 +113,25 @@ footer {
   height: 5vh;
   width: 100%;
   background-color: #403E39;
-  color: rgb(201, 201, 201);
+  color: #ffffff;
   font-family: var(--body-font);
+}
+@media only screen and (max-width: 1400px) {
+  .container {
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .formContainer, .previewContainer {
+    width: 80%;
+    margin: 0 auto;
+  }
+  .previewContainer {
+    margin-top: 50px;
+  }
+
+  .mobile-nav {
+    display: flex;
+  }
 }
