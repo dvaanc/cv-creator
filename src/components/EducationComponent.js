@@ -24,8 +24,8 @@ class EducationInfo extends Component {
   }
   render() {
     return (
-      <div className="formGroupControl">
-        <fieldset id="EducationInfo">
+      <div className="formGroup" id="EducationInfo">
+        <fieldset>
           <input 
           type="text"
           name="institution"
@@ -73,6 +73,7 @@ class EducationInfo extends Component {
           />
         </fieldset>
       </div>
+        
     )
   }
 }

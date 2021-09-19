@@ -18,25 +18,69 @@ header {
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  color: white;
-  height: 15vh;
+  color: #333333;
+  height: 10vh;
   width: 100%;
   background-color: #91ACCA;
 }
 
-.formControl {
+.container {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  width: 100%;
+  background-color: #CCCCCC;
 }
 
-.formGroupControl {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.formContainer, .previewContainer {
+  width: 50%;
+  padding: 50px;
+  border-radius: 15px;
+
 }
 
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  border: none;
+  border-radius: 8px;
+  background-color: #EEEEEE;
+  margin-bottom: 40px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+  
+}
+#GeneralInfo {
+  display: flex;
+  flex-direction: column;
+  border: none;
+  padding: 30px;
+}
+fieldset h2 {
+  color: #333333;
+  margin-bottom: 10px;
+}
+fieldset input {
+  height: 35px;
+  margin-bottom: 10px;
+  padding: 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+textarea {
+  height: 120px;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  resize: none;
+}
+
+fieldset input:focus, textarea:focus {
+  outline: none;
+  border: 1px solid grey;
+}
 footer {
   display: flex;
   align-items: center;

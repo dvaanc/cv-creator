@@ -30,8 +30,9 @@ class GeneralInfo extends Component {
   }
   render() {
     return (
-      <div className="formControl">
+      <div className="formGroup">
         <fieldset id="GeneralInfo">
+        <h2>Personal Information</h2>
           <input 
           type="text"
           name="firstName"
@@ -78,6 +79,7 @@ class GeneralInfo extends Component {
           value={this.state.email}
           />
 
+          <p>Photo:</p>
           <input 
           type="file"
           name="photo"
