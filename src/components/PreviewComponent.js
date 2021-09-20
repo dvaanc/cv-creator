@@ -19,8 +19,40 @@ class PreviewComponent extends Component {
   }
   render() {
     return (
-      <div>
-        
+      <div className="previewContainer">
+        <div className="row1">
+          <div className="avatar"></div>
+          <div className="profile">
+            <h2>Description</h2>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius at nulla sed pretium. Nunc semper interdum lorem, id efficitur est. Pellentesque semper sed augue sed euismod. Maecenas dapibus efficitur purus at tincidunt. Pellentesque consequat venenatis velit, eu commodo dolor mollis vel. Donec mollis iaculis dui.
+            </p>
+          </div>
+        </div>
+        <div className="row2">
+          <div className="title">
+            <h2>Title</h2>
+          </div>
+          <div class="name">John Smith</div>
+        </div>
+        <div className="row3">
+          <div className="columnContainer">
+            <div className="col1">
+              <div className="section">
+
+              </div>
+              <div className="section">
+
+              </div>
+              <div className="section">
+
+              </div>
+            </div>
+            <div className="col2">
+
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
