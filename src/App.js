@@ -4,17 +4,22 @@ import GeneralInfo from './components/GeneralComponent.js';
 import EducationInfo from './components/EducationComponent.js';
 import ExperienceInfo from './components/ExperienceComponent';
 import PreviewComponent from './components/PreviewComponent';
-
+import EmptyCV from './components/EmptyCV';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       val: '',
     };
+    this.general = React.createRef();
+    this.education = React.createRef();
+    this.work = React.createRef();
   }
   onClearCV = (e) => {
     e.preventDefault();
-    console.log(GeneralInfo)
+    this.general.current.clearState();
+    this.education.current.clearState();
+    this.work.current.clearState();
   }
   onExampleCV(e) {
     e.preventDefault();
@@ -31,11 +36,20 @@ class App extends Component {
         <div className="container">
           <div className="formContainer">
             <form>
-              <GeneralInfo />
-              <EducationInfo />
-              <ExperienceInfo />
+              <GeneralInfo
+                ref={this.general}
+                emptyCV={EmptyCV.general} 
+              />
+              <EducationInfo 
+                ref={this.education}
+                emptyCV={EmptyCV.education}
+              />
+              <ExperienceInfo 
+                ref={this.work}
+                emptyCV={EmptyCV.work}
+              />
               <div className="buttonCluster">
-                <button className="button" id="reset" onClick={this.props.onClearCV}>Clear CV</button>
+                <button className="button" id="reset" onClick={this.onClearCV}>Clear CV</button>
                 <button className="button" id="example" onClick={this.onExampleCV}>Example CV</button>
                 <button 
                 type="submit" 

@@ -11,6 +11,11 @@ class ExperienceInfo extends Component {
       endDate: '',
     }
   }
+  clearState = () => {
+    this.setState({
+      ...this.props.emptyCV
+    });
+  }
   handleChange = (e) => {
     const val = e.target.value;
     const key = e.target.name;

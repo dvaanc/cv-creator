@@ -14,10 +14,11 @@ class GeneralInfo extends Component {
       description: '',
     };
   }
-  // handleChange = (e) => {
-  //   console.log(e.target.value);
-  //   this.setState({ firstName: e.target.value });
-  // }
+  clearState = () => {
+    this.setState({
+      ...this.props.emptyCV
+    });
+  }
   handleChange = (e) => {
     const val = e.target.value;
     const key = e.target.name;
@@ -34,6 +35,7 @@ class GeneralInfo extends Component {
     console.log(this)
   }
   render() {
+    
     return (
       <div className="formGroup" id="GeneralInfo">
         <fieldset>
