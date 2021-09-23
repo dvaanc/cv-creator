@@ -11,7 +11,16 @@ class EducationInfo extends Component {
       endDate: '',
     }
   }
-
+  handleChange = (e) => {
+    const val = e.target.value;
+    const key = e.target.name;
+    this.setState({ 
+      ...this.state,
+      [key]: val, 
+    },
+    () => { console.log(this.state) }
+    );
+  }
   render() {
     return (
       <div className="formGroup" id="EducationInfo">
@@ -60,6 +69,10 @@ class EducationInfo extends Component {
           onChange={this.handleChange}
           value={this.state.endDate}
           />
+          <div className="buttonCluster">
+            <button className="button" id="delete">Delete</button>
+            <button className="button" id="add">Add</button>
+          </div>
         </fieldset>
       </div>
         

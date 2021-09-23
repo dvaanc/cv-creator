@@ -6,13 +6,19 @@ import ExperienceInfo from './components/ExperienceComponent';
 import PreviewComponent from './components/PreviewComponent';
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       val: '',
     };
   }
-
+  onClearCV = (e) => {
+    e.preventDefault();
+    console.log(GeneralInfo)
+  }
+  onExampleCV(e) {
+    e.preventDefault();
+  }
   onSubmitCV(e) {
     e.preventDefault();
   }
@@ -25,18 +31,24 @@ class App extends Component {
         <div className="container">
           <div className="formContainer">
             <form>
-              <GeneralInfo/>
-              <ExperienceInfo/>
-              <EducationInfo/>
+              <GeneralInfo />
+              <EducationInfo />
+              <ExperienceInfo />
               <div className="buttonCluster">
-                <button class="button" id="reset">Clear CV</button>
-                <button class="button" id="example">Example CV</button>
-                <button type="submit" class="button" id="submit">Generate CV</button>
+                <button className="button" id="reset" onClick={this.props.onClearCV}>Clear CV</button>
+                <button className="button" id="example" onClick={this.onExampleCV}>Example CV</button>
+                <button 
+                type="submit" 
+                className="button" 
+                id="submit"
+                onClick={this.onSubmitCV}>
+                Generate CV
+                </button>
               </div>
 
             </form>
           </div>
-          <PreviewComponent/>
+          <PreviewComponent test={"test"}/>
         </div>
         <footer>
           <p>Copyright © 2021. Web Design by Danny Cao.</p>
@@ -47,3 +59,12 @@ class App extends Component {
 }
 
 export default App;
+
+/* 
+- submit Onclick, call a function that will make the three components call their method to 
+  pass in their state as props into preview component
+- add + delete buttons for each section
+- reset onClick, call a function that will make the three components reset all values 
+  by assigning to state to initial state variable
+- example onclick, call a function that will set the state for three compoenents
+*/

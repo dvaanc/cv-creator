@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import locationIcon from '../icons/location.png';
 import emailIcon from '../icons/email.png';
 import phoneIcon from '../icons/phone.png';
+import emptyAvatar from '../icons/emptyAvatar.png';
 
 class PreviewComponent extends Component {
   constructor(props) {
@@ -21,10 +22,15 @@ class PreviewComponent extends Component {
     );
   }
   render() {
+    console.log(this.props)
     return (
       <div className="previewContainer">
         <div className="row1">
-          <div className="avatar"></div>
+          <div className="avatar">
+            <div className="avatarContainer">
+              <img src={ emptyAvatar } alt="avatar"/>
+            </div>
+          </div>
           <div className="profile">
             <h2>PROFILE</h2>
             <p>
@@ -36,7 +42,7 @@ class PreviewComponent extends Component {
           <div className="title">
             <p>Professional Title</p>
           </div>
-          <div class="name">
+          <div className="name">
             <p>John Smith</p>
           </div>
         </div>

@@ -25,8 +25,13 @@ class GeneralInfo extends Component {
       ...this.state,
       [key]: val, 
     },
-    () => { console.log(this.state) }
+    () => { console.log(this.state)
+    console.log(e) }
     );
+  }
+  clearFields = (e) => {
+    e.preventDefault();
+    console.log(this)
   }
   render() {
     return (
@@ -95,7 +100,6 @@ class GeneralInfo extends Component {
           onChange={this.handleChange}
           value={this.state.description}
           />
-
         </fieldset>
       </div>
     )

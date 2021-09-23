@@ -68,6 +68,10 @@ class ExperienceInfo extends Component {
           onChange={this.handleChange}
           value={this.state.endDate}
           />
+          <div className="buttonCluster">
+            <button className="button" id="delete">Delete</button>
+            <button className="button" id="add">Add</button>
+          </div>
         </fieldset>
       </div>
     )
