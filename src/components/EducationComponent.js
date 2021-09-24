@@ -1,15 +1,37 @@
 import React, { Component } from 'react';
-
+import { v4 as uuidv4 } from 'uuid';
 class EducationInfo extends Component {
   constructor(props){
     super(props);
     this.state = {
+      // institution: '',
+      // city: '',
+      // qualification: '',
+      // startDate: '',
+      // endDate: '',
+      itemList: [
+        
+      ],
+    }
+  }
+  createItem = (e) => {
+    e.preventDefault();
+    const uniqueID = uuidv4();
+    const item = {
+      id: uniqueID,
       institution: '',
       city: '',
       qualification: '',
       startDate: '',
       endDate: '',
     }
+    this.setState({
+      itemList: [...this.state.itemList, item]
+    },
+    () => { console.log(this.state) }
+    )
+    console.log(uniqueID);
+    console.log(item);
   }
   clearState = () => {
     this.setState({
@@ -76,10 +98,13 @@ class EducationInfo extends Component {
           />
           <div className="buttonCluster">
             <button className="button" id="delete">Delete</button>
-            <button className="button" id="add">Add</button>
           </div>
         </fieldset>
+        <div>
+          <button onClick={this.createItem} className="button" id="add">Add</button>
+        </div>
       </div>
+
         
     )
   }

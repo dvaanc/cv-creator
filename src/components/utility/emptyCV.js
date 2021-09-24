@@ -1,4 +1,4 @@
-const EmptyCV = {
+const emptyCV = {
   general: {
     firstName: '',
     lastName: '',
@@ -24,4 +24,4 @@ const EmptyCV = {
   },
 }
 
-export default EmptyCV;
+export default emptyCV;

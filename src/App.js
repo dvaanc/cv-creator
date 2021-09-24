@@ -4,7 +4,7 @@ import GeneralInfo from './components/GeneralComponent.js';
 import EducationInfo from './components/EducationComponent.js';
 import ExperienceInfo from './components/ExperienceComponent';
 import PreviewComponent from './components/PreviewComponent';
-import EmptyCV from './components/EmptyCV';
+import emptyCV from './components/utility/emptyCV';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +14,7 @@ class App extends Component {
     this.general = React.createRef();
     this.education = React.createRef();
     this.work = React.createRef();
+    this.preview = React.createRef();
   }
   onClearCV = (e) => {
     e.preventDefault();
@@ -38,15 +39,15 @@ class App extends Component {
             <form>
               <GeneralInfo
                 ref={this.general}
-                emptyCV={EmptyCV.general} 
+                emptyCV={emptyCV.general} 
               />
               <EducationInfo 
                 ref={this.education}
-                emptyCV={EmptyCV.education}
+                emptyCV={emptyCV.education}
               />
               <ExperienceInfo 
                 ref={this.work}
-                emptyCV={EmptyCV.work}
+                emptyCV={emptyCV.work}
               />
               <div className="buttonCluster">
                 <button className="button" id="reset" onClick={this.onClearCV}>Clear CV</button>
@@ -62,7 +63,7 @@ class App extends Component {
 
             </form>
           </div>
-          <PreviewComponent test={"test"}/>
+          <PreviewComponent ref={this.preview}/>
         </div>
         <footer>
           <p>Copyright © 2021. Web Design by Danny Cao.</p>

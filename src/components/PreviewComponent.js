@@ -8,7 +8,7 @@ class PreviewComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      val: '',
+      displayInfo: true,
     };
   }
   handleChange = (e) => {
