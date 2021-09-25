@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import EducationItem from './utility/EducationItem';
 class EducationInfo extends Component {
   constructor(props){
     super(props);
     this.state = {
-      // institution: '',
-      // city: '',
-      // qualification: '',
-      // startDate: '',
-      // endDate: '',
       itemList: [
         
       ],
     }
+  }
+  deleteItem = (e, id) => {
+    e.preventDefault();
   }
   createItem = (e) => {
     e.preventDefault();
@@ -28,10 +27,8 @@ class EducationInfo extends Component {
     this.setState({
       itemList: [...this.state.itemList, item]
     },
-    () => { console.log(this.state) }
+    // () => { console.log(this.state) }
     )
-    console.log(uniqueID);
-    console.log(item);
   }
   clearState = () => {
     this.setState({
@@ -45,14 +42,72 @@ class EducationInfo extends Component {
       ...this.state,
       [key]: val, 
     },
-    () => { console.log(this.state) }
+    // () => { console.log(this.state) }
     );
   }
   render() {
     return (
       <div className="formGroup" id="EducationInfo">
-        <fieldset>
-          <h2>Education</h2>
+        <h2>Education</h2>      
+        {
+          this.state.itemList.map((item) => {
+            const i = this.state.itemList.indexOf(item)
+            console.log(this.state)
+            console.log(item);
+            return (
+              <fieldset>
+                <input 
+                type="text"
+                name="institution"
+                id={item.id}
+                placeholder="institution"
+                onChange={this.handleChange}
+                value={this.state.institution}
+                />
+
+                <input 
+                type="text"
+                name="city"
+                id={item.id}
+                placeholder="City"
+                onChange={this.handleChange}
+                value={this.state.city}
+                />
+
+                <input 
+                type="text"
+                name="qualification"
+                id={item.id}
+                placeholder="Qualification"
+                onChange={this.handleChange}
+                value={this.state.qualification}
+                />
+
+                <p>Start date:</p>
+                <input 
+                type="month"
+                name="startDate"
+                id={item.id}
+                onChange={this.handleChange}
+                value={this.state.startDate}
+                />
+                <p>End date:</p>
+                <input 
+                type="month"
+                name="endDate"
+                id={item.id}
+                onChange={this.handleChange}
+                value={this.state.endDate}
+                />
+                <div className="buttonCluster">
+                  <button className="button" id="delete">Delete</button>
+                </div>
+              </fieldset>
+            )
+          })
+        }
+        <EducationItem />
+        {/* <fieldset>
           <input 
           type="text"
           name="institution"
@@ -97,9 +152,9 @@ class EducationInfo extends Component {
           value={this.state.endDate}
           />
           <div className="buttonCluster">
-            <button className="button" id="delete">Delete</button>
+            <button onClick={this.deleteItem} className="button" id="delete">Delete</button>
           </div>
-        </fieldset>
+        </fieldset> */}
         <div>
           <button onClick={this.createItem} className="button" id="add">Add</button>
         </div>
