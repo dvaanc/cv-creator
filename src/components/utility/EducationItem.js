@@ -11,6 +11,10 @@ class EducationItem extends Component {
       endDate: '',
     }
   }
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.onChildClick(this.props)
+  }
   handleChange = (e) => {
     const val = e.target.value;
     const key = e.target.name;
@@ -28,11 +32,10 @@ class EducationItem extends Component {
         type="text"
         name="institution"
         id="institution"
-        placeholder="institution"
+        placeholder="Institution"
         onChange={this.handleChange}
         value={this.state.institution}
         />
-
         <input 
         type="text"
         name="city"
@@ -41,7 +44,6 @@ class EducationItem extends Component {
         onChange={this.handleChange}
         value={this.state.city}
         />
-
         <input 
         type="text"
         name="qualification"
@@ -50,7 +52,6 @@ class EducationItem extends Component {
         onChange={this.handleChange}
         value={this.state.qualification}
         />
-
         <p>Start date:</p>
         <input 
         type="month"
@@ -68,7 +69,7 @@ class EducationItem extends Component {
         value={this.state.endDate}
         />
         <div className="buttonCluster">
-          <button className="button" id="delete">Delete</button>
+          <button onClick={this.handleClick} className="button" id="delete">Delete</button>
         </div>
     </fieldset>
     )
