@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/App.css'
 
+
 class GeneralInfo extends Component {
   constructor(props) {
     super(props);
@@ -29,10 +30,6 @@ class GeneralInfo extends Component {
     () => { console.log(this.state)
     console.log(e) }
     );
-  }
-  clearFields = (e) => {
-    e.preventDefault();
-    console.log(this)
   }
   render() {
     

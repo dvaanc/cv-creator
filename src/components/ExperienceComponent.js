@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import WorkItem from './utility/WorkItem';
+import emptyCV from './utility/emptyCV';
 const uuid = uuidv4();
 class ExperienceInfo extends Component {
   constructor() {
     super();
+    this.child = React.createRef();
     this.state = {
       workList: [
-        <WorkItem key={uuid} id={uuid} onChildClick={this.deleteItem}/>
+        <WorkItem 
+          key={uuid}
+          ref={this.child} 
+          id={uuid} 
+          emptyCV={emptyCV.work}
+          onChildClick={this.deleteItem}
+        />
       ],
     }
   }
@@ -20,21 +28,20 @@ class ExperienceInfo extends Component {
     e.preventDefault();
     const uniqueID = uuidv4();
     const item = <WorkItem 
-      key={uniqueID} 
-      id={uniqueID}
-      onChildClick={this.deleteItem}
-      />;
+                    key={uniqueID}
+                    ref={this.child} 
+                    id={uniqueID}
+                    emptyCV={emptyCV.work}
+                    onChildClick={this.deleteItem}
+                  />;
     this.setState({
       workList: [...this.state.workList, item]
     },
     () => { console.log(this.state) }
     )
   }
-
-  clearState = () => {
-    this.setState({
-      workList: [],
-    });
+  clearList = () => {
+    this.child.current.clearState();
   }
   render() {
     return (

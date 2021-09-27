@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import EducationItem from './utility/EducationItem';
+import emptyCV from './utility/emptyCV';
 const uuid = uuidv4();
 class EducationInfo extends Component {
   constructor(props){
     super(props);
+    this.child = React.createRef();
     this.state = {
       eduList: [
-        <EducationItem key={uuid} id={uuid} onChildClick={this.deleteItem}/>
+        <EducationItem 
+          key={uuid} 
+          ref={this.child} 
+          id={uuid} 
+          emptyCV={emptyCV.education} 
+          onChildClick={this.deleteItem}
+        />
       ],
     }
   }
@@ -20,10 +28,12 @@ class EducationInfo extends Component {
     e.preventDefault();
     const uniqueID = uuidv4();
     const item = <EducationItem 
-      key={uniqueID} 
-      id={uniqueID}
-      onChildClick={this.deleteItem}
-      />;
+                    key={uniqueID}
+                    ref={this.child} 
+                    id={uniqueID}
+                    emptyCV={emptyCV.education}
+                    onChildClick={this.deleteItem}
+                    />;
     this.setState({
       eduList: [...this.state.eduList, item]
     },
@@ -31,9 +41,7 @@ class EducationInfo extends Component {
     )
   }
   clearList = () => {
-    this.setState({
-      eduList: [],
-    });
+    this.child.current.clearState();
   }
   render() {
     return (

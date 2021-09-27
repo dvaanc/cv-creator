@@ -8,19 +8,19 @@ import emptyCV from './components/utility/emptyCV';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      val: '',
-    };
     this.general = React.createRef();
     this.education = React.createRef();
     this.work = React.createRef();
     this.preview = React.createRef();
+    this.state = {
+      val: '',
+    };
   }
   onClearCV = (e) => {
     e.preventDefault();
     this.general.current.clearState();
-    this.education.current.clearState();
-    this.work.current.clearState();
+    this.education.current.clearList();
+    this.work.current.clearList();
   }
   onExampleCV(e) {
     e.preventDefault();

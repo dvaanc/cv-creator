@@ -10,6 +10,11 @@ class WorkItem extends Component {
       endDate: '',
     }
   }
+  clearState = () => {
+    this.setState({
+      ...this.props.emptyCV
+    });
+  }
   handleClick = (e) => {
     e.preventDefault();
     this.props.onChildClick(this.props)
