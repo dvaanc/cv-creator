@@ -6,12 +6,12 @@ const uuid = uuidv4();
 class ExperienceInfo extends Component {
   constructor() {
     super();
-    this.child = React.createRef();
+    this.child = [];
     this.state = {
       workList: [
         <WorkItem 
           key={uuid}
-          ref={this.child} 
+          ref={(child) => { this.child.push(child) }} 
           id={uuid} 
           emptyCV={emptyCV.work}
           onChildClick={this.deleteItem}
@@ -21,15 +21,17 @@ class ExperienceInfo extends Component {
   }
   deleteItem = (props) => {
     const id = props.id;
-    let filterArr = this.state.workList.filter((item) => item.props.id !== id);
-    this.setState({workList: filterArr}, () => { console.log(this.state) });
+    this.child = this.child.filter((item) => item.props.id !== id);
+    let newList = this.state.workList.filter((item) => item.props.id !== id);
+    this.setState({workList: newList}, () => { console.log(this.state) });
+    console.log(this.child)
   }
   createItem = (e) => {
     e.preventDefault();
     const uniqueID = uuidv4();
     const item = <WorkItem 
                     key={uniqueID}
-                    ref={this.child} 
+                    ref={(child) => { this.child.push(child) }} 
                     id={uniqueID}
                     emptyCV={emptyCV.work}
                     onChildClick={this.deleteItem}
@@ -41,8 +43,13 @@ class ExperienceInfo extends Component {
     )
   }
   clearList = () => {
-    this.child.current.clearState();
-  }
+    if(this.child.length === 0) return;
+      console.log(this.state)
+      this.child.forEach((item) => {
+        if(item === null) return;
+        item.clearState();
+      })
+    }
   render() {
     return (
       <div className="formGroup" id="ExperienceInfo">

@@ -6,12 +6,12 @@ const uuid = uuidv4();
 class EducationInfo extends Component {
   constructor(props){
     super(props);
-    this.child = React.createRef();
+    this.child = [];
     this.state = {
       eduList: [
         <EducationItem 
           key={uuid} 
-          ref={this.child} 
+          ref={(child) => { this.child.push(child) }} 
           id={uuid} 
           emptyCV={emptyCV.education} 
           onChildClick={this.deleteItem}
@@ -21,15 +21,18 @@ class EducationInfo extends Component {
   }
   deleteItem = (props) => {
     const id = props.id;
-    let filterArr = this.state.eduList.filter((item) => item.props.id !== id);
-    this.setState({eduList: filterArr}, () => { console.log(this.state) });
+    this.child = this.child.filter((item) => item.props.id !== id);
+    console.log(this.child)
+    let newList = this.state.eduList.filter((item) => item.props.id !== id);
+    this.setState({eduList: newList}, () => { console.log(this.state) });
+
   }
   createItem = (e) => {
     e.preventDefault();
     const uniqueID = uuidv4();
     const item = <EducationItem 
                     key={uniqueID}
-                    ref={this.child} 
+                    ref={(child) => { this.child.push(child) }} 
                     id={uniqueID}
                     emptyCV={emptyCV.education}
                     onChildClick={this.deleteItem}
@@ -41,8 +44,13 @@ class EducationInfo extends Component {
     )
   }
   clearList = () => {
-    this.child.current.clearState();
-  }
+    if(this.child.length === 0) return;
+      console.log(this.state)
+      this.child.forEach((item) => {
+        if(item === null) return;
+        item.clearState();
+      })
+    }
   render() {
     return (
       <div className="formGroup" id="EducationInfo">
