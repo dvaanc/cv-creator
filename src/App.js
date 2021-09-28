@@ -25,7 +25,8 @@ class App extends Component {
   }
   onExampleCV = (e) => {
     e.preventDefault();
-    this.general.current.exampleCV();
+    this.general.current.preFill();
+    this.education.current.generatePreFill();
   }
   onSubmitCV = (e) => {
     e.preventDefault();

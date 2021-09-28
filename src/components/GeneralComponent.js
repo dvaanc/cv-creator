@@ -19,16 +19,16 @@ class GeneralInfo extends Component {
   }
   handleFileChange = (e) => {
     e.preventDefault();
+    const name = e.target.files[0].name;  
+    const src = e.target.files[0];
     if(e.target.files && e.target.files[0]) {
-      const name = e.target.files[0].name;  
-      const src = e.target.files[0];
-      this.setState({ 
-        ...this.state,
-        photoName: name,
-        photoSrc: src,
-      }, () => {
-        console.log(this.state)
-      })
+        this.setState({ 
+          ...this.state,
+          photoName: name,
+          photoSrc: src,
+        }, () => {
+          console.log(this.state)
+        })
     }
   }
   clearState = () => {
@@ -36,21 +36,18 @@ class GeneralInfo extends Component {
       ...this.props.emptyCV,
     });
   }
-  exampleCV = () => {
+  preFill = () => {
     this.setState({
       ...this.props.exampleCV,
     })
   }
   handleChange = (e) => {
-    console.log(e.target)
     const val = e.target.value;
     const key = e.target.name;
     this.setState({ 
       ...this.state,
       [key]: val, 
-    },
-    () => { console.log(this.state) }
-    );
+    });
   }
   render() {
     return (
@@ -109,6 +106,7 @@ class GeneralInfo extends Component {
           type="file"
           name="photo"
           id="photo"
+          accept="image/*"
           onChange={this.handleFileChange}
           />
           <div className="fileUpload">

@@ -24,7 +24,6 @@ class ExperienceInfo extends Component {
     this.child = this.child.filter((item) => item.props.id !== id);
     let newList = this.state.workList.filter((item) => item.props.id !== id);
     this.setState({workList: newList}, () => { console.log(this.state) });
-    console.log(this.child)
   }
   createItem = (e) => {
     e.preventDefault();
@@ -38,13 +37,10 @@ class ExperienceInfo extends Component {
                   />;
     this.setState({
       workList: [...this.state.workList, item]
-    },
-    () => { console.log(this.state) }
-    )
+    })
   }
   clearList = () => {
     if(this.child.length === 0) return;
-      console.log(this.state)
       this.child.forEach((item) => {
         if(item === null) return;
         item.clearState();
@@ -54,11 +50,7 @@ class ExperienceInfo extends Component {
     return (
       <div className="formGroup" id="ExperienceInfo">
       <h2>Experience</h2>
-      {
-          this.state.workList.map((item) => {
-            return item
-          })
-        }
+      { this.state.workList.map((item) => item) }
         <div>
           <button onClick={this.createItem} className="button" id="add">Add</button>
         </div>

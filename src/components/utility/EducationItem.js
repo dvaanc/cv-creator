@@ -11,6 +11,11 @@ class EducationItem extends Component {
       endDate: '',
     }
   }
+  preFill = (props) => {
+    this.setState({
+      ...props
+    })
+  }
   clearState = () => {
     this.setState({
       ...this.props.emptyCV
