@@ -22,10 +22,10 @@ class EducationInfo extends Component {
   deleteItem = (props) => {
     const id = props.id;
     this.child = this.child.filter((item) => item.props.id !== id);
-    console.log(this.child)
-    let newList = this.state.eduList.filter((item) => item.props.id !== id);
-    this.setState({eduList: newList}, () => { console.log(this.state) });
-
+    const newList = this.state.eduList.filter((item) => item.props.id !== id);
+    this.setState({
+      eduList: newList
+    }, () => { console.log(this.state) });
   }
   createItem = (e) => {
     e.preventDefault();
@@ -39,9 +39,7 @@ class EducationInfo extends Component {
                     />;
     this.setState({
       eduList: [...this.state.eduList, item]
-    },
-    () => { console.log(this.state) }
-    )
+    }, () => { console.log(this.state) })
   }
   clearList = () => {
     if(this.child.length === 0) return;

@@ -15,10 +15,19 @@ class GeneralInfo extends Component {
       description: '',
     };
   }
+  handleFile = () => {
+    const file = this.state.photo;
+    console.log(file)
+  }
   clearState = () => {
     this.setState({
-      ...this.props.emptyCV
+      ...this.props.emptyCV,
     });
+  }
+  exampleCV = () => {
+    this.setState({
+      ...this.props.exampleCV,
+    })
   }
   handleChange = (e) => {
     const val = e.target.value;
@@ -32,7 +41,6 @@ class GeneralInfo extends Component {
     );
   }
   render() {
-    
     return (
       <div className="formGroup" id="GeneralInfo">
         <fieldset>
@@ -89,8 +97,13 @@ class GeneralInfo extends Component {
           name="photo"
           id="photo"
           onChange={this.handleChange}
-          value={this.state.photo}
           />
+          <div className="buttonCluster">
+          <input type="button" id="uploadFile"name="uploadFile" value="Upload Avatar"/>
+          <p>Test</p>
+          </div>
+
+
 
           <textarea 
           name="description"

@@ -5,6 +5,7 @@ import EducationInfo from './components/EducationComponent.js';
 import ExperienceInfo from './components/ExperienceComponent';
 import PreviewComponent from './components/PreviewComponent';
 import emptyCV from './components/utility/emptyCV';
+import exampleCV from './components/utility/exampleCV';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -22,10 +23,11 @@ class App extends Component {
     this.education.current.clearList();
     this.work.current.clearList();
   }
-  onExampleCV(e) {
+  onExampleCV = (e) => {
     e.preventDefault();
+    this.general.current.exampleCV();
   }
-  onSubmitCV(e) {
+  onSubmitCV = (e) => {
     e.preventDefault();
   }
   render() {
@@ -39,15 +41,18 @@ class App extends Component {
             <form>
               <GeneralInfo
                 ref={this.general}
-                emptyCV={emptyCV.general} 
+                emptyCV={emptyCV.general}
+                exampleCV={exampleCV.general} 
               />
               <EducationInfo 
                 ref={this.education}
                 emptyCV={emptyCV.education}
+                exampleCV={exampleCV.education}
               />
               <ExperienceInfo 
                 ref={this.work}
                 emptyCV={emptyCV.work}
+                exampleCV={exampleCV.work}
               />
               <div className="buttonCluster">
                 <button className="button" id="reset" onClick={this.onClearCV}>Clear CV</button>
