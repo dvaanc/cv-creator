@@ -5,19 +5,31 @@ import '../styles/App.css'
 class GeneralInfo extends Component {
   constructor(props) {
     super(props);
+    this.file = React.createRef();
     this.state = {
       firstName: '',
       lastName: '',
       city: '',
       phone: '',
       email: '',
-      photo: '',
+      photoName: '',
+      photoSrc: '',
       description: '',
     };
   }
-  handleFile = () => {
-    const file = this.state.photo;
-    console.log(file)
+  handleFileChange = (e) => {
+    e.preventDefault();
+    if(e.target.files && e.target.files[0]) {
+      const name = e.target.files[0].name;  
+      const src = e.target.files[0];
+      this.setState({ 
+        ...this.state,
+        photoName: name,
+        photoSrc: src,
+      }, () => {
+        console.log(this.state)
+      })
+    }
   }
   clearState = () => {
     this.setState({
@@ -30,14 +42,14 @@ class GeneralInfo extends Component {
     })
   }
   handleChange = (e) => {
+    console.log(e.target)
     const val = e.target.value;
     const key = e.target.name;
     this.setState({ 
       ...this.state,
       [key]: val, 
     },
-    () => { console.log(this.state)
-    console.log(e) }
+    () => { console.log(this.state) }
     );
   }
   render() {
@@ -92,18 +104,23 @@ class GeneralInfo extends Component {
           />
 
           <p>Photo:</p>
-          <input 
+          <input
+          ref={this.file} 
           type="file"
           name="photo"
           id="photo"
-          onChange={this.handleChange}
+          onChange={this.handleFileChange}
           />
-          <div className="buttonCluster">
-          <input type="button" id="uploadFile"name="uploadFile" value="Upload Avatar"/>
-          <p>Test</p>
+          <div className="fileUpload">
+          <input 
+          type="button" 
+          id="uploadFile" 
+          name="uploadFile" 
+          value="+"
+          onClick={() => this.file.current.click()}
+          />
+          <p>{this.state.photoName}</p>
           </div>
-
-
 
           <textarea 
           name="description"

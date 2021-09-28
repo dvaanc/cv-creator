@@ -68,21 +68,6 @@ fieldset input {
 fieldset input[type="file"] {
   display: none;
 }
-#uploadFile {
-  height: 55px;
-  width: 49%;
-  border: none;
-  border-radius: 6px;
-  padding: 3px;
-  margin-top: 10px;
-  font-family: 'ubuntu';
-  font-size: 18px;
-  background-color: #222222;
-  color: #ffffff;
-}
-#uploadFile:hover {
-  cursor: pointer;
-}
 textarea {
   height: 140px;
   width: 100%;
@@ -103,6 +88,13 @@ fieldset input:focus, textarea:focus {
   justify-content: space-between;
   flex-wrap: wrap;
   margin-bottom: 40px;
+}
+.fileUpload {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 .button {
   height: 55px;
@@ -131,6 +123,25 @@ button:hover {
 #delete, #add {
   background-color: #222222;
   width: 100%;
+}
+#uploadFile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border: none;
+  border-radius: 50%;
+  margin-top: 6px;
+  margin-right: 6px;
+  font-family: 'ubuntu';
+  font-size: 25px;
+  background-color: #222222;
+  color: #ffffff;
+  padding: 10px;
+}
+#uploadFile:hover {
+  cursor: pointer;
 }
 .previewContainer {
   width: 40%;
