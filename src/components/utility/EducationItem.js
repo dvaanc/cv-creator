@@ -23,6 +23,7 @@ class EducationItem extends Component {
   }
   handleClick = (e) => {
     e.preventDefault();
+    console.log(this.props)
     this.props.onChildClick(this.props)
   }
   handleChange = (e) => {

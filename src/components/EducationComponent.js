@@ -6,19 +6,19 @@ const uuid = uuidv4();
 class EducationInfo extends Component {
   constructor(props){
     super(props);
-    this.child = [];
+    this.child = React.createRef([]);
     this.state = {
       eduList: [
         <EducationItem 
           key={uuid} 
-          ref={(child) => { this.child.push(child) }} 
           id={uuid} 
           emptyCV={emptyCV.education} 
-          onChildClick={this.deleteItem}
+          onChildClick={this.deleteItem.bind(this)}
         />
       ],
     }
   }
+  // (child) => { this.child.push(child) }
   // generatePreFill = () => {
   //   const uniqueID = uuidv4();
   //   this.child= [];
@@ -37,23 +37,17 @@ class EducationInfo extends Component {
   //   console.log(this.state)
   // }
   deleteItem = (props) => {
-    console.log(props)
     const id = props.id;
-    console.log(id);
-    this.child = this.child.filter((item) => item.props.id !== id);
-    // const newList = this.state.eduList.filter((item) => item.props.id !== id);
-    // this.setState({
-    //   eduList: newList
-    // });
+    const newList = this.state.eduList.filter((item) => item.props.id !== id);
+    this.setState({ eduList: newList }, () => { console.log(this.state) });
   }
   createItem = () => {
     const uniqueID = uuidv4();
     const item = <EducationItem 
                     key={uniqueID}
-                    ref={(child) => { this.child = [...this.child, child] }} 
                     id={uniqueID}
                     emptyCV={emptyCV.education}
-                    onChildClick={this.deleteItem}
+                    onChildClick={this.deleteItem.bind(this)}
                   />;
     this.setState({
       eduList: [...this.state.eduList, item]
@@ -61,12 +55,14 @@ class EducationInfo extends Component {
     return false;
   }
   clearList = () => {
-    if(this.child.length === 0) return;
-      this.child.forEach((item) => {
+    if(this.state.eduList.length === 0) return;
+    const clearList = [...this.state.eduList];
+      clearList.forEach((item) => {
         if(item === null) return;
         item.clearState();
       })
-    }
+    this.setState({ eduList: clearList })
+  }
   render() {
     return (
       <div className="formGroup" id="EducationInfo">
