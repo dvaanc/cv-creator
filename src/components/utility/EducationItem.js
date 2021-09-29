@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 class EducationItem extends Component {
+  _isMounted = false;
   constructor(props){
     super(props);
     this.state = {
@@ -11,19 +12,23 @@ class EducationItem extends Component {
       endDate: '',
     }
   }
+  componentDidMount() {
+    this._isMounted = true;
+  }
   preFill = (props) => {
     this.setState({
       ...props
     })
   }
   clearState = () => {
-    this.setState({
-      ...this.props.emptyCV
-    });
+    if(this._isMounted) {
+      this.setState({
+        ...this.props.emptyCV
+      });
+    }
   }
   handleClick = (e) => {
     e.preventDefault();
-    console.log(this.props)
     this.props.onChildClick(this.props)
   }
   handleChange = (e) => {
@@ -35,6 +40,9 @@ class EducationItem extends Component {
     },
     // () => { console.log(this.state) }
     );
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   render() {
     return (
