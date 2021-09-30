@@ -10,23 +10,15 @@ class EducationInfo extends Component {
     this.state = {
       eduList: [
         <EducationItem
-            key={uuid} 
-            id={uuid}
-            ref={(child) => { this.child.push(child) }}
-            emptyCV={emptyCV.education} 
-            onChildClick={this.deleteItem}
-        />
+          key={uuid} 
+          id={uuid}
+          ref={(child) => { this.child.push(child) }}
+          emptyCV={emptyCV.education} 
+          onChildClick={this.deleteItem}
+        />,
       ],
     }
-
   }
-//   <EducationItem 
-//   key={uuid} 
-//   id={uuid}
-//   emptyCV={emptyCV.education} 
-//   onChildClick={this.deleteItem}
-// />
-  // (child) => { this.child.push(child) }
   generateID = () => {
     return uuidv4();
   }
@@ -44,43 +36,33 @@ class EducationInfo extends Component {
           key={id1} 
           id={id1} 
           ref={(child) => this.child.push(child)}
-          emptyCV={emptyCV.education} 
+          emptyCV={emptyCV.education}
+          exampleCV={this.props.exampleCV[0]} 
           onChildClick={this.deleteItem}
         />,
         <EducationItem
           key={id2} 
           id={id2} 
           ref={(child) => this.child.push(child)}
-          emptyCV={emptyCV.education} 
+          emptyCV={emptyCV.education}
+          exampleCV={this.props.exampleCV[1]} 
           onChildClick={this.deleteItem}
         />,
       ],
     }, () => {
+      console.log(this.child);
       this.child.forEach((item) => {
-        if(item !== null) {
-          const i = this.child.indexOf(item)
-          console.log(this.props.exampleCV[i])
-        }
-        return;    
-      })
+        if(item !== null) item.preFill();
+      });
     });
-
-    // this.child.forEach((item) => {
-    //   const i = this.child.indexOf(item)
-    //   console.log(i)
-    //   // item.preFill(this.props.exampleCV[i])
-    // })
   }
   deleteItem = (props) => {
     const id = props.id
     const newList = this.state.eduList.filter((item) => item.props.id !== id);
     this.setState({ eduList: newList }, () => { console.log(this.state) });
-      this.child.forEach((item) => {
-        if(item.props.id === id) {
-          const index = this.child.indexOf(item);
-          this.child.splice(index, 1)
-        }
-      })
+  }
+  passData = () => {
+    this.props.generalData(this.state)
   }
   createItem = () => {
     const uniqueID = uuidv4();
@@ -101,17 +83,13 @@ class EducationInfo extends Component {
       this.child.forEach((item) => {
         if(item === null) return;
         item.clearState();
-      })
+    })
   }
   render() {
     return (
       <div className="formGroup" id="EducationInfo">
         <h2>Education</h2> 
-        { this.state.eduList.map((item) => {
-          return item;
-        })
-
-          }
+        { this.state.eduList.map((item) => item) }
         <div>
           <button onClick={(e) => {
             e.preventDefault();

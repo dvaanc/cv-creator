@@ -26,8 +26,6 @@ class GeneralInfo extends Component {
           ...this.state,
           photoName: name,
           photoSrc: src,
-        }, () => {
-          console.log(this.state)
         })
     }
   }
@@ -39,6 +37,8 @@ class GeneralInfo extends Component {
   preFill = () => {
     this.setState({
       ...this.props.exampleCV,
+    }, () => {
+
     })
   }
   handleChange = (e) => {
@@ -48,6 +48,9 @@ class GeneralInfo extends Component {
       ...this.state,
       [key]: val, 
     });
+  }
+  passData = () => {
+    this.props.generalData(this.state)
   }
   render() {
     return (

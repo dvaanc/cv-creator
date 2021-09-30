@@ -14,7 +14,15 @@ class App extends Component {
     this.work = React.createRef();
     this.preview = React.createRef();
     this.state = {
-      val: '',
+      generalData: {
+
+      },
+      educationData: [
+
+      ],
+      workData: [
+
+      ],
     };
   }
   onClearCV = (e) => {
@@ -27,9 +35,25 @@ class App extends Component {
     e.preventDefault();
     this.general.current.preFill();
     this.education.current.generatePreFill();
+    this.work.current.generatePreFill();
   }
-  onSubmitCV = (e) => {
-    e.preventDefault();
+  onSubmitCV = () => {
+    // send app state to preview through props
+  }
+  handleGeneral = (props) => {
+    console.log(props) 
+    this.setState({ 
+      ...this.state,
+      generalData: [
+        ...props,
+      ],
+    })   
+  }
+  handleEducation = (props) => {
+    console.log(props)    
+  }
+  handleWork = (props) => {
+    console.log(props)    
   }
   render() {
     return (
@@ -43,17 +67,20 @@ class App extends Component {
               <GeneralInfo
                 ref={this.general}
                 emptyCV={emptyCV.general}
-                exampleCV={exampleCV.general} 
+                exampleCV={exampleCV.general}
+                generalData= {this.handleGeneral}
               />
               <EducationInfo 
                 ref={this.education}
                 emptyCV={emptyCV.education}
                 exampleCV={exampleCV.education}
+                educationData={this.handleEducation}
               />
               <ExperienceInfo 
                 ref={this.work}
                 emptyCV={emptyCV.work}
                 exampleCV={exampleCV.work}
+                workData={this.handleWork}
               />
               <div className="buttonCluster">
                 <button className="button" id="reset" onClick={this.onClearCV}>Clear CV</button>
@@ -62,7 +89,10 @@ class App extends Component {
                 type="submit" 
                 className="button" 
                 id="submit"
-                onClick={this.onSubmitCV}>
+                onClick={(e) => {
+                  e.preventDefault();
+                  this.onSubmitCV()
+                  }}>
                 Generate CV
                 </button>
               </div>

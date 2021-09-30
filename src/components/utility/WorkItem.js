@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 class WorkItem extends Component {
+  _isMounted = false;
   constructor(props){
     super(props);
     this.state = {
@@ -10,10 +11,20 @@ class WorkItem extends Component {
       endDate: '',
     }
   }
-  clearState = () => {
+  componentDidMount() {
+    this._isMounted = true;
+  }
+  preFill = () => {
     this.setState({
-      ...this.props.emptyCV
-    });
+      ...this.props.exampleCV
+    })
+  }
+  clearState = () => {
+    if(this._isMounted) {
+      this.setState({
+        ...this.props.emptyCV
+      });
+    }
   }
   handleClick = (e) => {
     e.preventDefault();
@@ -26,8 +37,11 @@ class WorkItem extends Component {
       ...this.state,
       [key]: val, 
     },
-    // () => { console.log(this.state) }
+    () => { console.log(this.state) }
     );
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
   }
   render() {
     return (

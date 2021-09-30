@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 class EducationItem extends Component {
   _isMounted = false;
   constructor(props){
@@ -15,11 +14,10 @@ class EducationItem extends Component {
   componentDidMount() {
     this._isMounted = true;
   }
-  preFill = (props) => {
-    // this.setState({
-    //   ...props
-    // })
-    console.log(props)
+  preFill = () => {
+    this.setState({
+      ...this.props.exampleCV
+    })
   }
   clearState = () => {
     if(this._isMounted) {
@@ -39,7 +37,7 @@ class EducationItem extends Component {
       ...this.state,
       [key]: val, 
     },
-    // () => { console.log(this.state) }
+    () => { console.log(this.state) }
     );
   }
   componentWillUnmount() {
