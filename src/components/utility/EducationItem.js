@@ -16,9 +16,10 @@ class EducationItem extends Component {
     this._isMounted = true;
   }
   preFill = (props) => {
-    this.setState({
-      ...props
-    })
+    // this.setState({
+    //   ...props
+    // })
+    console.log(props)
   }
   clearState = () => {
     if(this._isMounted) {

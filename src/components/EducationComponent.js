@@ -27,14 +27,49 @@ class EducationInfo extends Component {
 //   onChildClick={this.deleteItem}
 // />
   // (child) => { this.child.push(child) }
-  generatePreFill = () => {
+  generateID = () => {
+    return uuidv4();
+  }
+  clearState = () => {
     this.child= [];
-    this.setState({ eduList: []})
-    console.log(this.props.exampleCV.length)
-    // this.props.exampleCV.forEach(() => this.createItem());
-    for(let i; i <= this.props.exampleCV.length; i+=1) this.createItem();
-    for(let i; i < this.child.length; i+=1) this.child[i].preFill(this.props.exampleCV[i]); 
-    console.log(this.state)
+    this.setState({ eduList: [] })
+  }
+  generatePreFill = () => {
+    const id1 = this.generateID();
+    const id2= this.generateID();
+    this.clearState();
+    this.setState({
+      eduList: [
+        <EducationItem
+          key={id1} 
+          id={id1} 
+          ref={(child) => this.child.push(child)}
+          emptyCV={emptyCV.education} 
+          onChildClick={this.deleteItem}
+        />,
+        <EducationItem
+          key={id2} 
+          id={id2} 
+          ref={(child) => this.child.push(child)}
+          emptyCV={emptyCV.education} 
+          onChildClick={this.deleteItem}
+        />,
+      ],
+    }, () => {
+      this.child.forEach((item) => {
+        if(item !== null) {
+          const i = this.child.indexOf(item)
+          console.log(this.props.exampleCV[i])
+        }
+        return;    
+      })
+    });
+
+    // this.child.forEach((item) => {
+    //   const i = this.child.indexOf(item)
+    //   console.log(i)
+    //   // item.preFill(this.props.exampleCV[i])
+    // })
   }
   deleteItem = (props) => {
     const id = props.id
@@ -68,14 +103,11 @@ class EducationInfo extends Component {
         item.clearState();
       })
   }
-  setRef = (element) => {
-    this.child = element;
-  }
   render() {
     return (
       <div className="formGroup" id="EducationInfo">
         <h2>Education</h2> 
-        { this.state.eduList.map((item, index) => {
+        { this.state.eduList.map((item) => {
           return item;
         })
 
