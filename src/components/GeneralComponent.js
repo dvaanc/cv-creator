@@ -37,8 +37,6 @@ class GeneralInfo extends Component {
   preFill = () => {
     this.setState({
       ...this.props.exampleCV,
-    }, () => {
-
     })
   }
   handleChange = (e) => {

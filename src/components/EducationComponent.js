@@ -50,7 +50,6 @@ class EducationInfo extends Component {
         />,
       ],
     }, () => {
-      console.log(this.child);
       this.child.forEach((item) => {
         if(item !== null) item.preFill();
       });
@@ -59,7 +58,7 @@ class EducationInfo extends Component {
   deleteItem = (props) => {
     const id = props.id
     const newList = this.state.eduList.filter((item) => item.props.id !== id);
-    this.setState({ eduList: newList }, () => { console.log(this.state) });
+    this.setState({ eduList: newList });
   }
   passData = () => {
     this.props.generalData(this.state)
@@ -84,6 +83,9 @@ class EducationInfo extends Component {
         if(item === null) return;
         item.clearState();
     })
+  }
+  passData = () => {
+    this.props.educationData(this.state)
   }
   render() {
     return (

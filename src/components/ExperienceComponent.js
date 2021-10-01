@@ -29,7 +29,7 @@ class ExperienceInfo extends Component {
   deleteItem = (props) => {
     const id = props.id
     const newList = this.state.workList.filter((item) => item.props.id !== id);
-    this.setState({ workList: newList }, () => { console.log(this.state) });
+    this.setState({ workList: newList });
   }
   clearList = () => {
     if(this.child.length === 0) return;
@@ -37,9 +37,6 @@ class ExperienceInfo extends Component {
         if(item === null) return;
         item.clearState();
     })
-  }
-  passData = () => {
-    this.props.generalData(this.state)
   }
   generatePreFill = () => {
     const id1 = this.generateID();
@@ -68,7 +65,6 @@ class ExperienceInfo extends Component {
       this.child.forEach((item) => {
         if(item !== null) item.preFill();
       });
-      this.passData();
     });
   }
   createItem = () => {
@@ -84,6 +80,9 @@ class ExperienceInfo extends Component {
     this.setState({
       workList: [...this.state.workList, item]
     })
+  }
+  passData = () => {
+    this.props.workData(this.state)
   }
   render() {
     return (

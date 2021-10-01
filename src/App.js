@@ -9,21 +9,18 @@ import exampleCV from './components/utility/exampleCV';
 class App extends Component {
   constructor(props) {
     super(props);
+    this.generalData = {};
+    this.educationData = [];
+    this.workdata = [];
+    this.state = {
+      generalData: {},
+      educationData: [],
+      workData: [],
+    };
     this.general = React.createRef();
     this.education = React.createRef();
     this.work = React.createRef();
     this.preview = React.createRef();
-    this.state = {
-      generalData: {
-
-      },
-      educationData: [
-
-      ],
-      workData: [
-
-      ],
-    };
   }
   onClearCV = (e) => {
     e.preventDefault();
@@ -37,24 +34,19 @@ class App extends Component {
     this.education.current.generatePreFill();
     this.work.current.generatePreFill();
   }
-  onSubmitCV = () => {
-    // send app state to preview through props
-  }
-  handleGeneral = (props) => {
-    console.log(props) 
+  saveData = () => {
+    this.general.current.passData();
+    this.education.current.passData();
+    this.work.current.passData();
     this.setState({ 
-      ...this.state,
-      generalData: [
-        ...props,
-      ],
-    })   
+      generalData: this.generalData,
+      educationData: this.educationData,
+      workData: this.workData,
+    })
   }
-  handleEducation = (props) => {
-    console.log(props)    
-  }
-  handleWork = (props) => {
-    console.log(props)    
-  }
+  handleGeneral = (props) => this.generalData = props; 
+  handleEducation = (props) => this.educationData = props.eduList;
+  handleWork = (props) => this.workData = props.workList;  
   render() {
     return (
       <div className="app">
@@ -91,7 +83,7 @@ class App extends Component {
                 id="submit"
                 onClick={(e) => {
                   e.preventDefault();
-                  this.onSubmitCV()
+                  this.saveData()
                   }}>
                 Generate CV
                 </button>
