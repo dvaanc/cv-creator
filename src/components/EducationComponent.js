@@ -61,6 +61,11 @@ class EducationInfo extends Component {
     this.setState({ eduList: newList });
   }
   passData = () => {
+    console.log('test')
+    this.child.forEach((item) => {
+      if(item === null) return
+      console.log(item)
+    })
     this.props.generalData(this.state)
   }
   createItem = () => {

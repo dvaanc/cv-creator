@@ -8,41 +8,55 @@ class PreviewComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayInfo: true,
+      generalData: {
+        photoSrc: emptyAvatar,
+      },
+      educationData: [],
+      workData: [],
     };
   }
-  handleChange = (e) => {
-    const val = e.target.value;
-    const key = e.target.name;
-    this.setState({ 
-      ...this.state,
-      [key]: val, 
-    },
-    () => { console.log(this.state) }
-    );
+  loadData = () => {
+    this.setState({
+      generalData: this.props.data.generalData,
+      educationData: this.props.data.educationData,
+      workData: this.props.data.workData,
+    });
+  }
+  setDefaultPhoto = () => {
+    if(this.state.generalData.photoSrc === '' || undefined || null) {
+      this.setState({
+        ...this.state,
+        generalData: {
+          ...this.state.generalData,
+          photoSrc: emptyAvatar,
+        },
+      });
+    };
   }
   render() {
+    const { generalData, educationData, workData } = this.state;
+
+    // console.log(educationData[0])
+    // console.log(workData)
     return (
       <div className="previewContainer">
         <div className="row1">
           <div className="avatar">
             <div className="avatarContainer">
-              <img src={ emptyAvatar } alt="avatar"/>
+              <img src={ generalData.photoSrc } alt="avatar"/>
             </div>
           </div>
           <div className="profile">
             <h2>PROFILE</h2>
-            <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius at nulla sed pretium. Nunc semper interdum lorem, id efficitur est. Pellentesque semper sed augue sed euismod. Maecenas dapibus efficitur purus at tincidunt. Pellentesque consequat venenatis velit, eu commodo dolor mollis vel. Donec mollis iaculis dui.
-            </p>
+            <p>{ generalData.description }</p>
           </div>
         </div>
         <div className="row2">
           <div className="title">
-            <p>Professional Title</p>
+            <p>{ generalData.occupation }</p>
           </div>
           <div className="name">
-            <p>John Smith</p>
+            <p>{ generalData.firstName } { generalData.lastName }</p>
           </div>
         </div>
         <div className="row3">
@@ -52,12 +66,15 @@ class PreviewComponent extends Component {
                 <ul>
                   <li>
                     <img src={ locationIcon } alt="location"/>
+                    <h4>{ generalData.city }</h4>
                   </li>
                   <li>
                     <img src={ emailIcon } alt="email"/>
+                    <h4>{ generalData.email }</h4>
                   </li>
                   <li>
                     <img src={ phoneIcon } alt="email"/>
+                    <h4>{ generalData.phone }</h4>
                   </li>
                 </ul>
               </div>

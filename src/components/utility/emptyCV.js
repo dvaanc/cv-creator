@@ -2,6 +2,7 @@ const emptyCV = {
   general: {
     firstName: '',
     lastName: '',
+    occupation: '',
     city: '',
     phone: '',
     email: '',

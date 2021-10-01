@@ -9,6 +9,7 @@ class GeneralInfo extends Component {
     this.state = {
       firstName: '',
       lastName: '',
+      occupation: '',
       city: '',
       phone: '',
       email: '',
@@ -71,6 +72,14 @@ class GeneralInfo extends Component {
           placeholder="Last name"
           onChange={this.handleChange}
           value={this.state.lastName}
+          />
+          <input 
+          type="text"
+          name="occupation"
+          id="occupation"
+          placeholder="Occupation"
+          onChange={this.handleChange}
+          value={this.state.occupation}
           />
 
           <input 

@@ -3,8 +3,9 @@ const exampleCV = {
   general: {
     firstName: 'John',
     lastName: 'Smith',
+    occupation: 'Senior Software Engineer',
     city: 'Sydney',
-    phone: '0405321583',
+    phone: '0405 321 583',
     email: 'JohnSmith@gmail.com',
     photoName: 'emptyAvatar.png',
     photoSrc: emptyAvatar,

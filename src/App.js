@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
     this.generalData = {};
     this.educationData = [];
-    this.workdata = [];
+    this.workData = [];
     this.state = {
       generalData: {},
       educationData: [],
@@ -34,6 +34,10 @@ class App extends Component {
     this.education.current.generatePreFill();
     this.work.current.generatePreFill();
   }
+  // onSubmitCV = () => {
+  //   this.saveData();
+  //   this.preview.current.loadData();
+  // }
   saveData = () => {
     this.general.current.passData();
     this.education.current.passData();
@@ -42,10 +46,18 @@ class App extends Component {
       generalData: this.generalData,
       educationData: this.educationData,
       workData: this.workData,
+    }, () => {
+      this.preview.current.loadData();
+      this.preview.current.setDefaultPhoto();
     })
   }
   handleGeneral = (props) => this.generalData = props; 
-  handleEducation = (props) => this.educationData = props.eduList;
+  handleEducation = (props) => {
+    //education + work, set state with list states instead of components
+    //when calling these method passData method should return an array 
+    //of list data instead of components themselves
+    this.educationData = props.eduList;
+  }
   handleWork = (props) => this.workData = props.workList;  
   render() {
     return (
@@ -91,7 +103,7 @@ class App extends Component {
 
             </form>
           </div>
-          <PreviewComponent ref={this.preview}/>
+          <PreviewComponent ref={this.preview} data={this.state}/>
         </div>
         <footer>
           <p>Copyright © 2021. Web Design by Danny Cao.</p>
