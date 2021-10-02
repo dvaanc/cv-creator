@@ -56,8 +56,13 @@ class EducationInfo extends Component {
     });
   }
   deleteItem = (props) => {
-    const id = props.id
+    const id = props.id;
     const newList = this.state.eduList.filter((item) => item.props.id !== id);
+    this.child = this.child.filter((item) => {
+      // eslint-disable-next-line array-callback-return
+      if(item === null) return;
+      return item.props.id !== id;
+    });
     this.setState({ eduList: newList });
   }
   passData = () => {
@@ -90,7 +95,12 @@ class EducationInfo extends Component {
     })
   }
   passData = () => {
-    this.props.educationData(this.state)
+    const educationData = [];
+    this.child.forEach((item) => {
+      if(item === null) return;
+      educationData.push(item.state);
+    });
+    this.props.educationData(educationData);
   }
   render() {
     return (

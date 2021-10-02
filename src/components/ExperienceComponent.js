@@ -27,8 +27,13 @@ class ExperienceInfo extends Component {
     this.setState({ workList: [] });
   }
   deleteItem = (props) => {
-    const id = props.id
+    const id = props.id;
     const newList = this.state.workList.filter((item) => item.props.id !== id);
+    this.child = this.child.filter((item) => {
+      // eslint-disable-next-line array-callback-return
+      if(item === null) return;
+      return item.props.id !== id;
+    });
     this.setState({ workList: newList });
   }
   clearList = () => {
@@ -82,7 +87,12 @@ class ExperienceInfo extends Component {
     })
   }
   passData = () => {
-    this.props.workData(this.state)
+    const workData = [];
+    this.child.forEach((item) => {
+      if(item === null) return;
+      workData.push(item.state);
+    });
+    this.props.workData(workData);
   }
   render() {
     return (

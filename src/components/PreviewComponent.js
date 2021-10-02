@@ -3,6 +3,7 @@ import locationIcon from '../icons/location.png';
 import emailIcon from '../icons/email.png';
 import phoneIcon from '../icons/phone.png';
 import emptyAvatar from '../icons/emptyAvatar.png';
+import { v4 as uuidv4 } from 'uuid';
 
 class PreviewComponent extends Component {
   constructor(props) {
@@ -22,8 +23,15 @@ class PreviewComponent extends Component {
       workData: this.props.data.workData,
     });
   }
+  handleDate = (date) => {
+    // const today = new Date();
+  }
   setDefaultPhoto = () => {
-    if(this.state.generalData.photoSrc === '' || undefined || null) {
+    if(this.state.generalData.photoSrc === 
+      '' || 
+      undefined || 
+      null
+      ) {
       this.setState({
         ...this.state,
         generalData: {
@@ -35,9 +43,6 @@ class PreviewComponent extends Component {
   }
   render() {
     const { generalData, educationData, workData } = this.state;
-
-    // console.log(educationData[0])
-    // console.log(workData)
     return (
       <div className="previewContainer">
         <div className="row1">
@@ -86,15 +91,22 @@ class PreviewComponent extends Component {
                 <h2>EDUCATION</h2>
                 <div className="educationBlock">
                   <ul className="educationList">
-                    <li>
-                      <div className="date">
-                        2015 - Present
-                      </div>
-                      <div className="info">
-                        <h4>Senior Web Developer</h4>
-                        <p>Facebook inc, Menlo Park</p>
-                      </div>
-                    </li>
+                    {
+                      educationData.map((item, i) => {
+                        const uuid = uuidv4();
+                        return (
+                          <li key={uuid}>
+                            <div className="date">
+                              {item.startDate} - {item.endDate}
+                            </div>
+                            <div className="info">
+                              <h4>{item.institution}, {item.city}</h4>
+                              <p>Qualification: {item.qualification}</p>
+                            </div>
+                          </li>
+                        );
+                      })
+                    }
                   </ul>
                 </div>
               </div>
@@ -102,15 +114,22 @@ class PreviewComponent extends Component {
                 <h2>WORK EXPERIENCE</h2>
                 <div className="workExperienceBlock">
                   <ul className="workExperienceList">
-                    <li>
-                      <div className="date">
-                        2015 - Present
-                      </div>
-                      <div className="info">
-                        <h4>Melbourne Universtity, Melbourne</h4>
-                        <p>Degree: Master of Computer Science</p>
-                      </div>
-                    </li>
+                  {
+                      workData.map((item, i) => {
+                        const uuid = uuidv4();
+                        return (
+                          <li key={uuid}>
+                            <div className="date">
+                              {item.startDate} - {item.endDate}
+                            </div>
+                            <div className="info">
+                              <h4>{item.company}, {item.city}</h4>
+                              <p>Job Title: {item.position}</p>
+                            </div>
+                          </li>
+                        );
+                      })
+                    }
                   </ul>
                 </div>
               </div>

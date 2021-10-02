@@ -34,11 +34,7 @@ class App extends Component {
     this.education.current.generatePreFill();
     this.work.current.generatePreFill();
   }
-  // onSubmitCV = () => {
-  //   this.saveData();
-  //   this.preview.current.loadData();
-  // }
-  saveData = () => {
+  onSubmitCV = () => {
     this.general.current.passData();
     this.education.current.passData();
     this.work.current.passData();
@@ -52,13 +48,8 @@ class App extends Component {
     })
   }
   handleGeneral = (props) => this.generalData = props; 
-  handleEducation = (props) => {
-    //education + work, set state with list states instead of components
-    //when calling these method passData method should return an array 
-    //of list data instead of components themselves
-    this.educationData = props.eduList;
-  }
-  handleWork = (props) => this.workData = props.workList;  
+  handleEducation = (props) => this.educationData = props;
+  handleWork = (props) => this.workData = props;  
   render() {
     return (
       <div className="app">
@@ -95,7 +86,7 @@ class App extends Component {
                 id="submit"
                 onClick={(e) => {
                   e.preventDefault();
-                  this.saveData()
+                  this.onSubmitCV()
                   }}>
                 Generate CV
                 </button>

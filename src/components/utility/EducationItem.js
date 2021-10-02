@@ -36,9 +36,7 @@ class EducationItem extends Component {
     this.setState({ 
       ...this.state,
       [key]: val, 
-    },
-    () => { console.log(this.state) }
-    );
+    });
   }
   componentWillUnmount() {
     this._isMounted = false;

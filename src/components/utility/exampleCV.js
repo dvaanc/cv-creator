@@ -1,4 +1,4 @@
-import emptyAvatar from '../../icons/emptyAvatar.png';
+import exampleAvatar from '../../icons/exampleAvatar.jpg';
 const exampleCV = {
   general: {
     firstName: 'John',
@@ -7,8 +7,8 @@ const exampleCV = {
     city: 'Sydney',
     phone: '0405 321 583',
     email: 'JohnSmith@gmail.com',
-    photoName: 'emptyAvatar.png',
-    photoSrc: emptyAvatar,
+    photoName: 'exampleAvatar.png',
+    photoSrc: exampleAvatar,
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut varius at nulla sed pretium. Nunc semper interdum lorem, id efficitur est. Pellentesque semper sed augue sed euismod. Maecenas dapibus efficitur purus at tincidunt. Pellentesque consequat venenatis velit, eu commodo dolor mollis vel. Donec mollis iaculis dui.',
   },
   education: [
