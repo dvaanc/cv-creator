@@ -26,7 +26,8 @@ class App extends Component {
     e.preventDefault();
     this.general.current.clearState();
     this.education.current.clearList();
-    this.work.current.clearList();
+    // this.work.current.clearList();
+    console.log(this.work.current)
   }
   onExampleCV = (e) => {
     e.preventDefault();

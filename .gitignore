@@ -10,6 +10,7 @@
 
 # production
 /build
+/_class-components-code
 
 # misc
 .DS_Store

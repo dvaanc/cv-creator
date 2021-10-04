@@ -1,114 +1,120 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import WorkItem from './utility/WorkItem';
 import emptyCV from './utility/emptyCV';
 const uuid = uuidv4();
-class ExperienceInfo extends Component {
-  constructor(props) {
-    super(props);
-    this.child = [];
-    this.state = {
-      workList: [
-        <WorkItem 
-          key={uuid}
-          id={uuid} 
-          ref={(child) => { this.child.push(child) }} 
-          emptyCV={emptyCV.work}
-          onChildClick={this.deleteItem}
-        />,
-      ],
-    }
-  }
-  generateID = () => {
-    return uuidv4();
-  }
-  clearState = () => {
-    this.child= [];
-    this.setState({ workList: [] });
-  }
-  deleteItem = (props) => {
+export default function ExperienceInfo(props) {
+  let child = [];
+  const [state, setState] = useState({
+    workList: [
+      <WorkItem 
+        key={uuid}
+        id={uuid} 
+        ref={(item) => { child.push(item) }} 
+        emptyCV={emptyCV.work}
+        onChildClick={deleteItem}
+      />,
+    ],
+  });
+
+  function deleteItem(props) {
     const id = props.id;
-    const newList = this.state.workList.filter((item) => item.props.id !== id);
-    this.child = this.child.filter((item) => {
+    const newList = state.workList.filter((item) => item.props.id !== id);
+    child = child.filter((item) => {
       // eslint-disable-next-line array-callback-return
       if(item === null) return;
       return item.props.id !== id;
     });
-    this.setState({ workList: newList });
+    setState(() => ({
+      workList: newList,
+    }));
   }
-  clearList = () => {
-    if(this.child.length === 0) return;
-      this.child.forEach((item) => {
+
+  function generateID()  {
+    return uuidv4();
+  }
+  function clearState() {
+    child = [];
+    setState(() => ({
+      workList: [],
+    }));
+  }
+
+  function clearList() {
+    if(child.length === 0) return;
+      child.forEach((item) => {
         if(item === null) return;
         item.clearState();
     })
   }
-  generatePreFill = () => {
-    const id1 = this.generateID();
-    const id2= this.generateID();
-    this.clearState();
-    this.setState({
+
+  function generatePreFill() {
+    const id1 = generateID();
+    const id2= generateID();
+    clearState();
+    setState(() => ({
       workList: [
         <WorkItem
           key={id1} 
           id={id1} 
-          ref={(child) => this.child.push(child)}
+          ref={(item) => child.push(item)}
           emptyCV={emptyCV.work}
-          exampleCV={this.props.exampleCV[0]} 
-          onChildClick={this.deleteItem}
+          exampleCV={props.exampleCV[0]} 
+          onChildClick={deleteItem}
         />,
         <WorkItem
           key={id2} 
           id={id2} 
-          ref={(child) => this.child.push(child)}
+          ref={(item) => child.push(item)}
           emptyCV={emptyCV.work}
-          exampleCV={this.props.exampleCV[1]} 
-          onChildClick={this.deleteItem}
+          exampleCV={props.exampleCV[1]} 
+          onChildClick={deleteItem}
         />,
       ],
-    }, () => {
-      this.child.forEach((item) => {
+    }), () => {
+      child.forEach((item) => {
         if(item !== null) item.preFill();
       });
     });
   }
-  createItem = () => {
+
+  function createItem() {
     const uniqueID = uuidv4();
     const item = 
       <WorkItem 
         key={uniqueID}
         id={uniqueID}
-        ref={(child) => this.child.push(child)} 
+        ref={(item) => child.push(item)} 
         emptyCV={emptyCV.work}
-        onChildClick={this.deleteItem}
+        onChildClick={deleteItem}
       />;
-    this.setState({
-      workList: [...this.state.workList, item]
-    })
+    setState(() => ({
+      workList: [...state.workList, item]
+    }))
   }
-  passData = () => {
+
+  function passData() {
     const workData = [];
-    this.child.forEach((item) => {
+    child.forEach((item) => {
       if(item === null) return;
       workData.push(item.state);
     });
-    this.props.workData(workData);
+    props.workData(workData);
   }
-  render() {
-    return (
-      <div className="formGroup" id="ExperienceInfo">
-      <h2>Experience</h2>
-      { this.state.workList.map((item) => item) }
-        <div>
-        <button onClick={(e) => {
-            e.preventDefault();
-            this.createItem();
-          }} className="button" id="add">Add</button>
-        </div>
+
+  return (
+    <div className="formGroup" id="ExperienceInfo">
+    <h2>Experience</h2>
+    { state.workList.map((item) => item) }
+      <div>
+      <button onClick={(e) => {
+          e.preventDefault();
+          createItem();
+        }} className="button" id="add">Add</button>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default ExperienceInfo;
+
 
