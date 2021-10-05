@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
 import './styles/App.css'
 import GeneralInfo from './components/GeneralComponent.js';
 import EducationInfo from './components/EducationComponent.js';
@@ -6,52 +6,58 @@ import ExperienceInfo from './components/ExperienceComponent';
 import PreviewComponent from './components/PreviewComponent';
 import emptyCV from './components/utility/emptyCV';
 import exampleCV from './components/utility/exampleCV';
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.generalData = {};
-    this.educationData = [];
-    this.workData = [];
-    this.state = {
+export default function App(props) {
+    let generalData = {};
+    let educationData = [];
+    let workData = [];
+    const [state, setState] = useState({
       generalData: {},
       educationData: [],
       workData: [],
-    };
-    this.general = React.createRef();
-    this.education = React.createRef();
-    this.work = React.createRef();
-    this.preview = React.createRef();
-  }
-  onClearCV = (e) => {
+    });
+    // this.general = React.createRef();
+    // this.education = React.createRef();
+    // this.work = React.createRef();
+    // this.preview = React.createRef();
+    const general = useRef();
+    const education = useRef();
+    const work = useRef(null);
+    const preview = useRef();
+  
+  function onClearCV(e) {
     e.preventDefault();
-    this.general.current.clearState();
-    this.education.current.clearList();
-    // this.work.current.clearList();
-    console.log(this.work.current)
+    // general.current.clearState();
+    // education.current.clearList();
+    work.current.clearList();
   }
-  onExampleCV = (e) => {
+  function onExampleCV(e) {
     e.preventDefault();
-    this.general.current.preFill();
-    this.education.current.generatePreFill();
-    this.work.current.generatePreFill();
+    // this.general.current.preFill();
+    // this.education.current.generatePreFill();
+    work.current.generatePreFill();
   }
-  onSubmitCV = () => {
-    this.general.current.passData();
-    this.education.current.passData();
-    this.work.current.passData();
-    this.setState({ 
-      generalData: this.generalData,
-      educationData: this.educationData,
-      workData: this.workData,
-    }, () => {
-      this.preview.current.loadData();
-      this.preview.current.setDefaultPhoto();
-    })
+  function onSubmitCV() {
+    // this.general.current.passData();
+    // this.education.current.passData();
+    // this.work.current.passData();
+    // this.setState({ 
+    //   generalData: this.generalData,
+    //   educationData: this.educationData,
+    //   workData: this.workData,
+    // }, () => {
+    //   this.preview.current.loadData();
+    //   this.preview.current.setDefaultPhoto();
+    // })
   }
-  handleGeneral = (props) => this.generalData = props; 
-  handleEducation = (props) => this.educationData = props;
-  handleWork = (props) => this.workData = props;  
-  render() {
+  function handleGeneral(props) {
+    return generalData = props;
+  }
+  function handleEducation(props){
+    return educationData = props; 
+  }
+  function handleWork(props) {
+    return workData = props; 
+  }
     return (
       <div className="app">
         <header>
@@ -61,33 +67,33 @@ class App extends Component {
           <div className="formContainer">
             <form>
               <GeneralInfo
-                ref={this.general}
+                ref={general}
                 emptyCV={emptyCV.general}
                 exampleCV={exampleCV.general}
-                generalData= {this.handleGeneral}
+                generalData= {handleGeneral}
               />
               <EducationInfo 
-                ref={this.education}
+                ref={education}
                 emptyCV={emptyCV.education}
                 exampleCV={exampleCV.education}
-                educationData={this.handleEducation}
+                educationData={handleEducation}
               />
               <ExperienceInfo 
-                ref={this.work}
+                ref={work}
                 emptyCV={emptyCV.work}
                 exampleCV={exampleCV.work}
-                workData={this.handleWork}
+                workData={handleWork}
               />
               <div className="buttonCluster">
-                <button className="button" id="reset" onClick={this.onClearCV}>Clear CV</button>
-                <button className="button" id="example" onClick={this.onExampleCV}>Example CV</button>
+                <button className="button" id="reset" onClick={onClearCV}>Clear CV</button>
+                <button className="button" id="example" onClick={onExampleCV}>Example CV</button>
                 <button 
                 type="submit" 
                 className="button" 
                 id="submit"
                 onClick={(e) => {
                   e.preventDefault();
-                  this.onSubmitCV()
+                  onSubmitCV()
                   }}>
                 Generate CV
                 </button>
@@ -95,7 +101,7 @@ class App extends Component {
 
             </form>
           </div>
-          <PreviewComponent ref={this.preview} data={this.state}/>
+          <PreviewComponent ref={preview} data={state}/>
         </div>
         <footer>
           <p>Copyright © 2021. Web Design by Danny Cao.</p>
@@ -103,9 +109,6 @@ class App extends Component {
       </div>
     )
   }
-}
-
-export default App;
 
 /* 
 - submit Onclick, call a function that will make the three components call their method to 

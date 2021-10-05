@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import WorkItem from './utility/WorkItem';
 import emptyCV from './utility/emptyCV';
 const uuid = uuidv4();
-export default function ExperienceInfo(props) {
+const ExperienceInfo = forwardRef((props, ref) => {
   let child = [];
+  let isExample = false;
   const [state, setState] = useState({
     workList: [
       <WorkItem 
@@ -16,6 +17,18 @@ export default function ExperienceInfo(props) {
       />,
     ],
   });
+  useEffect(() => {
+    if(isExample) {
+      console.log('testr')
+      child.forEach((item) => {
+        if(item !== null) item.preFill();
+      });
+    }
+  }, [state, isExample])
+  useImperativeHandle(ref, () => ({
+    clearList: () => clearList(),
+    generatePreFill: () => generatePreFill(),
+  }));
 
   function deleteItem(props) {
     const id = props.id;
@@ -41,6 +54,7 @@ export default function ExperienceInfo(props) {
   }
 
   function clearList() {
+    console.log(props)
     if(child.length === 0) return;
       child.forEach((item) => {
         if(item === null) return;
@@ -52,6 +66,7 @@ export default function ExperienceInfo(props) {
     const id1 = generateID();
     const id2= generateID();
     clearState();
+    isExample = true;
     setState(() => ({
       workList: [
         <WorkItem
@@ -71,11 +86,7 @@ export default function ExperienceInfo(props) {
           onChildClick={deleteItem}
         />,
       ],
-    }), () => {
-      child.forEach((item) => {
-        if(item !== null) item.preFill();
-      });
-    });
+    }));
   }
 
   function createItem() {
@@ -114,7 +125,6 @@ export default function ExperienceInfo(props) {
       </div>
     </div>
   )
-}
+})
 
-
-
+export default ExperienceInfo;
