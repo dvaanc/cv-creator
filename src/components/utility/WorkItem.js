@@ -1,95 +1,100 @@
-import React, { Component } from 'react'
-class WorkItem extends Component {
-  _isMounted = false;
-  constructor(props){
-    super(props);
-    this.state = {
-      position: '',
-      company: '',
-      city: '',
-      startDate: '',
-      endDate: '',
-    }
+import React, { useState, forwardRef, useImperativeHandle } from 'react'
+const WorkItem = forwardRef((props, ref) => {
+  const [state, setState] = useState ({
+    position: '',
+    company: '',
+    city: '',
+    startDate: '',
+    endDate: '',
+  })
+
+  useImperativeHandle(ref, () => ({
+    clear: () => clearState(),
+    generate: () => preFill(),
+    getID: () => getID(),
+  }));
+
+  function preFill() {
+    setState({
+      ...props.exampleCV
+    });
   }
-  componentDidMount() {
-    this._isMounted = true;
+  function getID() {
+    return props.id;
   }
-  preFill = () => {
-    this.setState({
-      ...this.props.exampleCV
-    })
+
+  function clearState() {
+    console.log('success')
+    setState(() => ({
+      ...props.emptyCV
+    }));
   }
-  clearState = () => {
-    if(this._isMounted) {
-      this.setState({
-        ...this.props.emptyCV
-      });
-    }
-  }
-  handleClick = (e) => {
+
+  function handleClick(e) {
     e.preventDefault();
-    this.props.onChildClick(this.props)
+    props.onChildClick(props)
   }
-  handleChange = (e) => {
+
+  function handleChange(e) {
     const val = e.target.value;
     const key = e.target.name;
-    this.setState({ 
-      ...this.state,
+    setState({ 
+      ...state,
       [key]: val, 
     });
   }
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-  render() {
-    return (
-      <fieldset>
+//   function componentWillUnmount() {
+//   this._isMounted = false;
+// }
+
+  return (
+    <fieldset>
       <input 
       type="text"
       name="position"
       id="position"
       placeholder="Position"
-      onChange={this.handleChange}
-      value={this.state.position}
+      onChange={handleChange}
+      value={state.position}
       />
       <input 
       type="text"
       name="company"
       id="company"
       placeholder="Company"
-      onChange={this.handleChange}
-      value={this.state.company}
+      onChange={handleChange}
+      value={state.company}
       />
       <input 
       type="text"
       name="city"
       id="city"
       placeholder="City"
-      onChange={this.handleChange}
-      value={this.state.city}
+      onChange={handleChange}
+      value={state.city}
       />
       <p>Start date:</p>
       <input 
       type="month"
       name="startDate"
       id="startDate"
-      onChange={this.handleChange}
-      value={this.state.startDate}
+      onChange={handleChange}
+      value={state.startDate}
       />
       <p>End date:</p>
       <input 
       type="month"
       name="endDate"
       id="endDate"
-      onChange={this.handleChange}
-      value={this.state.endDate}
+      onChange={handleChange}
+      value={state.endDate}
       />
       <div className="buttonCluster">
-        <button onClick={this.handleClick} className="button" id="delete">Delete</button>
+        <button onClick={handleClick} className="button" id="delete">Delete</button>
       </div>
-    </fieldset>
-    )
-  }
-}
+  </fieldset>
+  )
+}) 
+
 export default WorkItem;
 

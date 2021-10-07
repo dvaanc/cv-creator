@@ -21,20 +21,20 @@ export default function App(props) {
     // this.preview = React.createRef();
     const general = useRef();
     const education = useRef();
-    const work = useRef(null);
+    const work = useRef();
     const preview = useRef();
   
   function onClearCV(e) {
     e.preventDefault();
     // general.current.clearState();
     // education.current.clearList();
-    work.current.clearList();
+    work.current.clear();
   }
   function onExampleCV(e) {
     e.preventDefault();
     // this.general.current.preFill();
     // this.education.current.generatePreFill();
-    work.current.generatePreFill();
+    work.current.generate();
   }
   function onSubmitCV() {
     // this.general.current.passData();
