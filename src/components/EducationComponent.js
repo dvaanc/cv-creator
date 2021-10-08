@@ -23,7 +23,7 @@ class EducationInfo extends Component {
     return uuidv4();
   }
   clearState = () => {
-    this.child= [];
+    this.child = [];
     this.setState({ eduList: [] })
   }
   generatePreFill = () => {
@@ -63,6 +63,7 @@ class EducationInfo extends Component {
       if(item === null) return;
       return item.props.id !== id;
     });
+    console.log(this.child)
     this.setState({ eduList: newList });
   }
   passData = () => {

@@ -11,7 +11,7 @@ const WorkItem = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     clear: () => clearState(),
     generate: () => preFill(),
-    getID: () => getID(),
+    id: props.id,
   }));
 
   function preFill() {

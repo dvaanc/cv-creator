@@ -2,9 +2,9 @@ import React, { useRef, useState, forwardRef, useImperativeHandle, useEffect } f
 import { v4 as uuidv4 } from 'uuid';
 import WorkItem from './utility/WorkItem';
 import emptyCV from './utility/emptyCV';
-import { computeHeadingLevel } from '@testing-library/react';
 const uuid = uuidv4();
 const ExperienceInfo = forwardRef((props, ref) => {
+  let child = useRef([]);
   const [state, setState] = useState({
     workList: [
       <WorkItem 
@@ -16,15 +16,16 @@ const ExperienceInfo = forwardRef((props, ref) => {
       />,
     ],
   });
-  let child = useRef([]);
-  // useEffect(() => {
+
+  useEffect(() => {
+      setState(() => ({
+        ...state,
+      }))
+      // child.forEach((item) => {
+      //   if(item !== null) item.preFill();
+      // });
     
-  //     console.log('testr')
-  //     // child.forEach((item) => {
-  //     //   if(item !== null) item.preFill();
-  //     // });
-    
-  // }, [state, isExample])
+  }, [child])
 
   useImperativeHandle(ref, () => ({
     clear: () => clearList(),
@@ -40,32 +41,21 @@ const ExperienceInfo = forwardRef((props, ref) => {
   // }
   function deleteItem(props) {
     const id = props.id;
-    console.log(state)
     const newList = state.workList.filter((item) => item.props.id !== id);
     Promise.resolve()
-        .then(() => {
-          child.current.forEach((item, i) => {
-            if(item === null || undefined ) return;
-            const itemID = item.getID();
-            if(itemID === id) {
-              child.current.splice(i, 1);
-            }
-          })
-          console.log(child.current);
+      .then(() => {
+        child.current = child.current.filter((item) => {
+          // eslint-disable-next-line array-callback-return
+          if(item === null || undefined) return;
+          return item.id !== id;
         })
-        .then(() => {
-          setState(() => ({
-            workList: newList,
-          }))
+        console.log(child.current)
         })
-        // .then(() => {
-        //   child.current.forEach((item, i) => {
-        //     if(item === null) {
-        //       child.current.splice(i, 1);
-        //     }
-        //   })
-        //   console.log(child.current);
-        // })
+      .then(() => {
+        setState(() => ({
+          workList: newList,
+        }))
+      })
   }
 
   function generateID()  {
@@ -101,7 +91,7 @@ const ExperienceInfo = forwardRef((props, ref) => {
             <WorkItem
               key={id1} 
               id={id1} 
-              ref={(item) => child.push(item)}
+              ref={(item) => child.current.push(item)}
               emptyCV={emptyCV.work}
               exampleCV={props.exampleCV[0]} 
               onChildClick={deleteItem}
@@ -109,7 +99,7 @@ const ExperienceInfo = forwardRef((props, ref) => {
             <WorkItem
               key={id2} 
               id={id2} 
-              ref={(item) => child.push(item)}
+              ref={(item) => child.current.push(item)}
               emptyCV={emptyCV.work}
               exampleCV={props.exampleCV[1]} 
               onChildClick={deleteItem}
@@ -142,6 +132,7 @@ const ExperienceInfo = forwardRef((props, ref) => {
         workList: [...state.workList, item]
       }));
     })
+    .then (() => console.log(child.current))
   }
 
   function passData() {
