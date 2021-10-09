@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import './styles/App.css'
 import GeneralInfo from './components/GeneralComponent.js';
 import EducationInfo from './components/EducationComponent.js';
@@ -7,18 +7,11 @@ import PreviewComponent from './components/PreviewComponent';
 import emptyCV from './components/utility/emptyCV';
 import exampleCV from './components/utility/exampleCV';
 export default function App(props) {
+  // static workData = ExperienceInfo.workDataContext
+    const [state, setState] = useState({});
     let generalData = {};
     let educationData = [];
     let workData = [];
-    const [state, setState] = useState({
-      generalData: {},
-      educationData: [],
-      workData: [],
-    });
-    // this.general = React.createRef();
-    // this.education = React.createRef();
-    // this.work = React.createRef();
-    // this.preview = React.createRef();
     const general = useRef();
     const education = useRef();
     const work = useRef();
@@ -28,18 +21,21 @@ export default function App(props) {
     e.preventDefault();
     // general.current.clearState();
     // education.current.clearList();
-    work.current.clear();
+    work.current.clearList();
   }
   function onExampleCV(e) {
     e.preventDefault();
     // this.general.current.preFill();
     // this.education.current.generatePreFill();
-    work.current.generate();
+    work.current.generatePrefill();
   }
   function onSubmitCV() {
+
+
     // this.general.current.passData();
     // this.education.current.passData();
-    // this.work.current.passData();
+    work.current.passDataToProps();
+    console.log(workData)
     // this.setState({ 
     //   generalData: this.generalData,
     //   educationData: this.educationData,
@@ -70,7 +66,7 @@ export default function App(props) {
                 ref={general}
                 emptyCV={emptyCV.general}
                 exampleCV={exampleCV.general}
-                generalData= {handleGeneral}
+                generalData={handleGeneral}
               />
               <EducationInfo 
                 ref={education}
