@@ -1,10 +1,9 @@
-import React, { useRef, useState, forwardRef, useImperativeHandle, createContext } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import WorkItem from './utility/WorkItem';
-import emptyCV from './utility/emptyCV';
 const uuid = uuidv4();
 const ExperienceInfo = forwardRef((props, ref) => {
-  const [state, setState] = useState({
+  const [state, setState] = 
+  useState({
     workList: [
       {
         position: '',
@@ -16,15 +15,35 @@ const ExperienceInfo = forwardRef((props, ref) => {
       },
     ],
   });
-
   useImperativeHandle(ref, () => ({
     clearList: () => clearList(),
     generatePrefill: () => generatePrefill(),
     passDataToProps: () => passDataToProps(),
   }));
-  
-
-
+  function handleChange(e) {
+    const index = e.target.parentNode.id;
+    const val = e.target.value;
+    const key = e.target.name;
+    state.workList[index] = {
+      ...state.workList[index],
+      [key]: val,
+    };
+    setState(() => ({ workList: [...state.workList] }))
+  }
+  function createItem() {
+    const uniqueID = uuidv4();
+    const item = {
+      position: '',
+      company: '',
+      city: '',
+      startDate: '',
+      endDate: '',
+      id:[uniqueID],
+    }
+      setState(() => ({
+        workList: [...state.workList, item]
+      }));
+  }
   function deleteItem(e) {
     e.preventDefault();
     const index = e.target.parentNode.parentNode.id;
@@ -32,14 +51,6 @@ const ExperienceInfo = forwardRef((props, ref) => {
     newArr.splice(index, 1);
     setState(() => ({ workList: [...newArr] }))
   }
-
-  function generateID()  {
-    return uuidv4();
-  }
-  function clearState() {
-    setState(() => ({ workList: [] }));
-  }
-
   function clearList() {
     const clearedArr = [];
     state.workList.forEach((item) => {
@@ -51,7 +62,9 @@ const ExperienceInfo = forwardRef((props, ref) => {
     });
     setState(() => ({ workList: [...clearedArr] }))
   }
-
+  function clearState() {
+    setState(() => ({ workList: [] }));
+  }
   function generatePrefill() {
     const id0 = generateID();
     const id1 = generateID();
@@ -75,35 +88,12 @@ const ExperienceInfo = forwardRef((props, ref) => {
         ],
       }));
   }
-
-  function createItem() {
-    const uniqueID = uuidv4();
-    const item = {
-      position: '',
-      company: '',
-      city: '',
-      startDate: '',
-      endDate: '',
-      id:[uniqueID],
-    }
-      setState(() => ({
-        workList: [...state.workList, item]
-      }));
+  function generateID()  {
+    return uuidv4();
   }
   function passDataToProps() {
-    props.workData(state.workList)
+    return props.workData(state.workList)
   }  
-  function handleChange(e) {
-    const index = e.target.parentNode.id;
-    const val = e.target.value;
-    const key = e.target.name;
-
-    state.workList[index] = {
-      ...state.workList[index],
-      [key]: val,
-    }
-      setState(() => ({ workList: [...state.workList] }))
-  }
   return (
     <div className="formGroup" id="ExperienceInfo">
     <h2>Experience</h2>
@@ -159,10 +149,15 @@ const ExperienceInfo = forwardRef((props, ref) => {
       })
     }
       <div>
-      <button onClick={(e) => {
-          e.preventDefault();
-          createItem();
-        }} className="button" id="add">Add</button>
+        <button onClick=
+          {(e) => {
+            e.preventDefault();
+            createItem();
+          }} 
+          className="button" 
+          id="add">
+          Add
+        </button>
       </div>
     </div>
   )

@@ -19,31 +19,32 @@ export default function App(props) {
   
   function onClearCV(e) {
     e.preventDefault();
-    // general.current.clearState();
-    // education.current.clearList();
+    general.current.clearState();
+    education.current.clearList();
     work.current.clearList();
   }
   function onExampleCV(e) {
     e.preventDefault();
-    // this.general.current.preFill();
-    // this.education.current.generatePreFill();
+    general.current.prefill();
+    education.current.generatePrefill();
     work.current.generatePrefill();
   }
   function onSubmitCV() {
-
-
-    // this.general.current.passData();
-    // this.education.current.passData();
+    general.current.passDataToProps();
+    education.current.passDataToProps();
     work.current.passDataToProps();
-    console.log(workData)
-    // this.setState({ 
-    //   generalData: this.generalData,
-    //   educationData: this.educationData,
-    //   workData: this.workData,
-    // }, () => {
-    //   this.preview.current.loadData();
-    //   this.preview.current.setDefaultPhoto();
-    // })
+    Promise.resolve()
+    .then(() => {
+      setState({ 
+        generalData: generalData,
+        educationData: educationData,
+        workData: workData,
+      })
+    })
+    .then(() => {
+      preview.current.loadData();
+      preview.current.setDefaultPhoto();
+    })
   }
   function handleGeneral(props) {
     return generalData = props;

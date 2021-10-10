@@ -1,124 +1,160 @@
-import React, { Component } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import EducationItem from './utility/EducationItem';
-import emptyCV from './utility/emptyCV';
 const uuid = uuidv4();
-class EducationInfo extends Component {
-  constructor(props){
-    super(props);
-    this.child = [];
-    this.state = {
-      eduList: [
-        <EducationItem
-          key={uuid} 
-          id={uuid}
-          ref={(child) => { this.child.push(child) }}
-          emptyCV={emptyCV.education} 
-          onChildClick={this.deleteItem}
-        />,
-      ],
-    }
+const EducationInfo = forwardRef((props, ref) => {
+  const [state, setState] = 
+  useState({
+    eduList: [
+      {
+        institution: '',
+        city: '',
+        qualification: '',
+        startDate: '',
+        endDate: '',
+        id: uuid,
+      }
+    ],
+  })
+  useImperativeHandle(ref, () => ({
+    clearList: () => clearList(),
+    generatePrefill: () => generatePrefill(),
+    passDataToProps: () => passDataToProps(),
+  }));
+  function handleChange(e) {
+    const index = e.target.parentNode.id;
+    const val = e.target.value;
+    const key = e.target.name;
+    state.eduList[index] = {
+      ...state.eduList[index],
+      [key]: val,
+    };
+    setState(() => ({ eduList: [...state.eduList] }))
   }
-  generateID = () => {
+  function createItem() {
+    const uniqueID = uuidv4();
+    const item = {
+      institution: '',
+      city: '',
+      qualification: '',
+      startDate: '',
+      endDate: '',
+      id:[uniqueID],
+    }
+    setState(() => ({
+      eduList: [...state.eduList, item]
+    }));
+  }
+  function deleteItem(e) {
+    e.preventDefault();
+    const index = e.target.parentNode.parentNode.id;
+    const newArr = [...state.eduList];
+    newArr.splice(index, 1);
+    setState(() => ({ eduList: [...newArr] }))
+  }
+  function clearList() {
+    const clearedArr = [];
+    state.eduList.forEach((item) => {
+      item = {
+        ...item,
+        ...props.emptyCV,
+      };
+      clearedArr.push(item);
+    });
+    setState(() => ({ eduList: [...clearedArr] }))
+  }
+  function clearState() {
+    setState(() => ({ eduList: [] }));
+  }
+  function generatePrefill() {
+    const id0 = generateID();
+    const id1 = generateID();
+    console.log(props.exampleCV)
+    clearState();
+      setState(() => ({
+        eduList: [
+          {
+            ...props.exampleCV[0],
+            id: id0,
+          },
+          {
+            ...props.exampleCV[1],
+            id: id1,
+          },
+        ],
+      }));
+  }
+  function generateID()  {
     return uuidv4();
   }
-  clearState = () => {
-    this.child = [];
-    this.setState({ eduList: [] })
-  }
-  generatePreFill = () => {
-    const id1 = this.generateID();
-    const id2= this.generateID();
-    this.clearState();
-    this.setState({
-      eduList: [
-        <EducationItem
-          key={id1} 
-          id={id1} 
-          ref={(child) => this.child.push(child)}
-          emptyCV={emptyCV.education}
-          exampleCV={this.props.exampleCV[0]} 
-          onChildClick={this.deleteItem}
-        />,
-        <EducationItem
-          key={id2} 
-          id={id2} 
-          ref={(child) => this.child.push(child)}
-          emptyCV={emptyCV.education}
-          exampleCV={this.props.exampleCV[1]} 
-          onChildClick={this.deleteItem}
-        />,
-      ],
-    }, () => {
-      this.child.forEach((item) => {
-        if(item !== null) item.preFill();
-      });
-    });
-  }
-  deleteItem = (props) => {
-    const id = props.id;
-    const newList = this.state.eduList.filter((item) => item.props.id !== id);
-    this.child = this.child.filter((item) => {
-      // eslint-disable-next-line array-callback-return
-      if(item === null) return;
-      return item.props.id !== id;
-    });
-    console.log(this.child)
-    this.setState({ eduList: newList });
-  }
-  passData = () => {
-    console.log('test')
-    this.child.forEach((item) => {
-      if(item === null) return
-      console.log(item)
-    })
-    this.props.generalData(this.state)
-  }
-  createItem = () => {
-    const uniqueID = uuidv4();
-    const item = 
-      <EducationItem
-        key={uniqueID} 
-        id={uniqueID}
-        ref={(child) => this.child.push(child)}
-        emptyCV={emptyCV.education} 
-        onChildClick={this.deleteItem}
-      />;
-    this.setState({
-      eduList: [...this.state.eduList, item]
-    })
-  }
-  clearList = () => {
-    if(this.child.length === 0) return;
-      this.child.forEach((item) => {
-        if(item === null) return;
-        item.clearState();
-    })
-  }
-  passData = () => {
-    const educationData = [];
-    this.child.forEach((item) => {
-      if(item === null) return;
-      educationData.push(item.state);
-    });
-    this.props.educationData(educationData);
-  }
-  render() {
-    return (
-      <div className="formGroup" id="EducationInfo">
-        <h2>Education</h2> 
-        { this.state.eduList.map((item) => item) }
-        <div>
-          <button onClick={(e) => {
+  function passDataToProps() {
+    return props.educationData(state.eduList)
+  }  
+  return (
+    <div className="formGroup" id="EducationInfo">
+      <h2>Education</h2> 
+      { state.eduList.map((item, i) => {
+        return (
+          <fieldset key={item.id} id={i}>
+            <input 
+            type="text"
+            name="institution"
+            id="institution"
+            placeholder="Institution"
+            onChange={handleChange}
+            value={item.institution}
+            />
+            <input 
+            type="text"
+            name="city"
+            id="city"
+            placeholder="City"
+            onChange={handleChange}
+            value={item.city}
+            />
+            <input 
+            type="text"
+            name="qualification"
+            id="qualification"
+            placeholder="Qualification"
+            onChange={handleChange}
+            value={item.qualification}
+            />
+            <p>Start date:</p>
+            <input 
+            type="month"
+            name="startDate"
+            id="startDate"
+            onChange={handleChange}
+            value={item.startDate}
+            />
+            <p>End date:</p>
+            <input 
+            type="month"
+            name="endDate"
+            id="endDate"
+            onChange={handleChange}
+            value={item.endDate}
+            />
+            <div className="buttonCluster">
+              <button onClick={deleteItem} className="button" id="delete">Delete</button>
+            </div>
+          </fieldset>
+        );
+      })
+      }
+      <div>
+        <button onClick=
+          {(e) => {
             e.preventDefault();
-            this.createItem();
-          }} className="button" id="add">Add</button>
-        </div>
+            createItem();
+          }} 
+          className="button" 
+          id="add">
+          Add
+        </button>
       </div>
-
-        
-    )
-  }
-}
+    </div>
+  )
+}) 
 
 export default EducationInfo;
